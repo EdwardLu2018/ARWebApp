@@ -2,7 +2,7 @@
 
 index.html is main file
 
-Go to EdwardLu2018.github.io to open webapp. Allow camera access.
+Go to https://edwardlu2018.github.io/ARWebApp/ to open webapp. Allow camera access.
 
 Goals: 
 1. To recognize custom markers
