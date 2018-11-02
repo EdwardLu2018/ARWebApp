@@ -6,10 +6,10 @@
     <title>AR Web Application</title>
     <a-scene embedded arjs vr-mode-ui='enabled: false'>
       <a-assets>
-        <a-asset-item id="pineapple" src="https://edwardlu2018.github.io/ARWebApp/pineapple.gltf"></a-asset-item>
+        <a-asset-item id="pineapple" src="https://edwardlu2018.github.io/ARWebApp/master/pineapple.gltf"></a-asset-item>
       </a-assets>
       <a-marker-camera preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/python-pattern-marker.patt'>
-        <a-entity gltf-model="#pineapple"></a-entity>
+        <a-entity gltf-model="#pineapple" scale="0.01 0.01 0.01"></a-entity>
       </a-marker-camera>
       <a-entity camera></a-entity>
     </a-scene>
