@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distances</title>
+	<title>Measure Distance</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -274,7 +274,7 @@
 
 			if (clickedMarker != null && !bothMarkersSelected){
 				var markerProj = toScreenPosition(clickedMarker, camera);
-				drawLine(markerProj.x, markerProj.y, 0, 
+				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, 0);
 				document.getElementById("pos").innerHTML = markerProj.x + ", " + markerProj.y;
 			}
