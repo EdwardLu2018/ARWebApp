@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
 
-	<title>AR-Test</title>
+	<title>AR Test</title>
 </head>
 
 <body style='margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;'>
@@ -28,9 +28,11 @@
 	</div>
 
 	<script>
-		var scene, camera, renderer, deltaTime, totalTime;
+		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 		var markerRoot1, markerRoot2;
+
+		// functions that update the view
 		var updateFuncs = [];
 
 		var mouse = new THREE.Vector2();
@@ -39,8 +41,8 @@
 		var raycaster = new THREE.Raycaster();
 		var objects;
 
-		var container, lineMesh;
-		var canvas, context, texture, sprite;
+		// measurementContainer consists of a lineMesh and a canvas/sprite to display the length
+		var measurementContainer, lineMesh, canvas, context, texture, sprite;
 
 		init();
 		animate();
@@ -144,9 +146,9 @@
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot2.add( mesh );
 
-			// make container
-			container = new THREE.Group
-			scene.add( container )
+			// make measurementContainer
+			measurementContainer = new THREE.Group
+			scene.add( measurementContainer )
 
 			// make linemesh
 			var material = new THREE.LineDashedMaterial( {dashSize: .25, gapSize: .25} );
@@ -154,7 +156,7 @@
 			geometry.vertices.push(new THREE.Vector3(1, 0, -3));
 			geometry.vertices.push(new THREE.Vector3(-1, 0, -3));
 			lineMesh = new THREE.Line(geometry, material);
-			container.add( lineMesh )
+			measurementContainer.add( lineMesh )
 
 			// build texture
 			canvas = document.createElement( 'canvas' );
@@ -167,7 +169,7 @@
 			var material = new THREE.SpriteMaterial( {map: texture, color: 0xffffff});
 			sprite = new THREE.Sprite( material );
 			sprite.scale.multiplyScalar(0.5)
-			container.add( sprite )
+			measurementContainer.add( sprite )
 
 			// event handlers
 			window.addEventListener('mousedown', onMouseDown)
