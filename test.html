@@ -275,7 +275,7 @@
 
 			if (clickedMarker != null && !bothMarkersSelected){
 				drawLine(clickedMarker.getWorldPosition().x, clickedMarker.getWorldPosition().position.y, clickedMarker.getWorldPosition().position.z, 
-						 	      mouse.x, mouse.y, mouse.z);
+						 	      mouse.x, mouse.y, 0);
 			}
 			else if (bothMarkersSelected){
 				updateLineMesh();
