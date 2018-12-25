@@ -251,6 +251,7 @@
 					drawLine(0,0,0,0,0,0)
 				}
 			}
+			clickedMarker.mesh.scale.set( 0.1, 0 );
 			clickedMarker = null;
 		}
 
@@ -270,12 +271,15 @@
 
 			if (clickedMarker != null && !bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "one marker selected";
+				clickedMarker.mesh.scale.set( 0.2, 0 );
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, mouse.z);
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
+				markerRoots[0].mesh.scale.set( 0.2, 0 );
+				markerRoots[1].mesh.scale.set( 0.2, 0 );
 				updateLineMesh();
 				displayMeasurement();
 			}
