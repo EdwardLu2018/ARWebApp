@@ -40,7 +40,8 @@
 		// array of all functions that update the view
 		var updateFuncs = [];
 
-		var mouse = new THREE.Vector2();
+		var mouse = new THREE.Vector3();
+		mouse.z = 0;
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
@@ -224,7 +225,7 @@
 					clickedMarker = markerRoots[i];
 				}
 			}
-			document.getElementById("pos").innerHTML = clickedMarker;
+			document.getElementById("pos").innerHTML = "marker selected";
 		}
 
 		function onTouchStart(event){
@@ -275,10 +276,10 @@
 			if (clickedMarker != null && !bothMarkersSelected){
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
-						 mouse.x, mouse.y, 0);
-				document.getElementById("pos").innerHTML = markerProj.x + ", " + markerProj.y;
+						 mouse.x, mouse.y, mouse.z);
 			}
 			else if (bothMarkersSelected){
+				document.getElementById("pos").innerHTML = "both markers selected";
 				updateLineMesh();
 				displayMeasurement();
 			}
