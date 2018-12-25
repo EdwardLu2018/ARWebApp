@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>AR Test</title>
+	<title>AR-Test</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -30,6 +30,7 @@
 	<script>
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
+
 		var markerRoot1, markerRoot2;
 
 		// functions that update the view
@@ -75,21 +76,7 @@
 				sourceType : "webcam",
 			});
 
-			function onResize(){
-				arToolkitSource.onResize()	
-				arToolkitSource.copySizeTo(renderer.domElement)	
-				if ( arToolkitContext.arController !== null )
-				{
-					arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
-				}	
-			}
-
 			arToolkitSource.init(function onReady(){
-				onResize()
-			});
-			
-			// handle resize event
-			window.addEventListener("resize", function(){
 				onResize()
 			});
 			
@@ -172,6 +159,8 @@
 			measurementContainer.add( sprite )
 
 			// event handlers
+			// handle resize event
+			window.addEventListener("resize", onResize)
 			window.addEventListener("mousedown", onMouseDown)
 			window.addEventListener("touchstart", onTouchStart)
 			window.addEventListener("mousemove", onMouseMove)
@@ -224,6 +213,15 @@
 			if ( arToolkitSource.ready !== false )
 				arToolkitContext.update( arToolkitSource.domElement );
 		});
+
+		function onResize(){
+			arToolkitSource.onResizeElement()
+			arToolkitSource.copyElementSizeTo(renderer.domElement)	
+			if ( arToolkitContext.arController !== null )
+			{
+				arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
+			}	
+		}
 
 		function onMouseDown(event){
 			onMouseMove(event);
