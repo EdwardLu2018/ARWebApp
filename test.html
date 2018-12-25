@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker]</p>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -213,8 +213,10 @@
 		}
 
 		function onMouseMove(event){
-			mouse.x = event.clientX
-			mouse.y = event.clientY
+			var widthHalf = 0.5*renderer.context.canvas.width;
+			var heightHalf = 0.5*renderer.context.canvas.height;
+			mouse.x = ( event.clientX * widthHalf ) + widthHalf;
+			mouse.y = - ( event.clientY * heightHalf ) + heightHalf;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
