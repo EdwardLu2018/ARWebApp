@@ -92,7 +92,7 @@
 			})
 
 			// add a gizmo in the center of the marker1
-			var geometry = new THREE.TorusKnotGeometry(0.05, 0.01, 64, 16);
+			var geometry = new THREE.TorusGeometry( 0.1, 0.01, 16, 100 );
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot1.add( mesh );
@@ -106,7 +106,7 @@
 			})
 
 			// add a gizmo in the center of the marker2
-			var geometry = new THREE.TorusKnotGeometry(0.05, 0.01, 64, 16);
+			var geometry = new THREE.TorusGeometry( 0.1, 0.01, 16, 100 );
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot2.add( mesh );
