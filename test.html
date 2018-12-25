@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of marker]</p>
 	</div>
 
 	<script>
@@ -162,7 +162,7 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-
+					
 					var proj = toScreenPosition(markerRoots[0], camera);
 					document.getElementById("pos").innerHTML = proj.x + ", " + proj.y;
 				}
@@ -175,8 +175,8 @@
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
-		    var widthHalf = 0.5*renderer.context.window.innerWidth;
-		    var heightHalf = 0.5*renderer.context.window.innerHeight;
+		    var widthHalf = 0.5*renderer.context.canvas.width;
+		    var heightHalf = 0.5*renderer.context.canvas.height;
 
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
