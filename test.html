@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of first marker]</p>
 	</div>
 
 	<script>
@@ -221,8 +221,10 @@
 		}
 
 		function onTouchMove(event){
-			mouse.x = event.touches[0].clientX
-			mouse.y = event.touches[0].clientY
+			var widthHalf = 0.5*renderer.context.canvas.width;
+			var heightHalf = 0.5*renderer.context.canvas.height;
+			mouse.x = ( event.touches[0].clientX * widthHalf ) + widthHalf;
+			mouse.y = - ( event.touches[0].clientY * heightHalf ) + heightHalf;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
