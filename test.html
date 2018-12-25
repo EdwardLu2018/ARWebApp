@@ -38,10 +38,6 @@
 		var updateFuncs = [];
 
 		var mouse = new THREE.Vector2();
-		var mouseVec = new THREE.Vector3();
-		var mousePos = new THREE.Vector3();
-		var raycaster = new THREE.Raycaster();
-		var objects;
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
@@ -51,7 +47,7 @@
 
 		function init(){
 			scene = new THREE.Scene();
-			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			camera = new THREE.Camera();
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true} );
 			renderer.setClearColor(new THREE.Color("lightgrey"), 0)
@@ -77,7 +73,7 @@
 			})
 			
 			// copy projection matrix to camera when initialization complete
-			arToolkitContext.init( function onCompleted(){
+			arToolkitContext.init(function onCompleted(){
 				camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 			});
 
@@ -190,27 +186,22 @@
 		}
 
 		function onMouseDown(event){
-			document.getElementById("text").innerHTML = objects;
+			onMouseMove(event);
 		}
 
 		function onTouchStart(event){
 			onTouchMove(event);
-			document.getElementById("text").innerHTML = objects;
 		}
 
 		function onMouseMove(event){
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			raycaster.setFromCamera( mouse.clone(), camera ); 
-			objects = raycaster.intersectObjects(scene.children);
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
-			raycaster.setFromCamera( mouse.clone(), camera ); 
-			objects = raycaster.intersectObjects(scene.children);
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
