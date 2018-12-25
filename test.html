@@ -248,7 +248,8 @@
 
 		function onMouseUp(){
 			for (var i = 0; i < markerRoots.length; i++){
-				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerRoots[i])){
+				var markerProj = toScreenPosition(markerRoots[i], camera);
+				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerProj)){
 					bothMarkersSelected = true;
 				}
 				else {
