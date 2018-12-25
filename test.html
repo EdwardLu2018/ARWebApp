@@ -50,13 +50,8 @@
 
 		function init(){
 			scene = new THREE.Scene();
-
-			let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
-			scene.add( ambientLight );
-						
 			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			scene.add(camera);
-
 			renderer = new THREE.WebGLRenderer({
 				antialias : true,
 				alpha: true
@@ -68,10 +63,7 @@
 			renderer.domElement.style.left = "0px"
 			document.body.appendChild( renderer.domElement );
 			
-			////////////////////////////////////////////////////////////
 			// setup arToolkitSource
-			////////////////////////////////////////////////////////////
-
 			arToolkitSource = new THREEx.ArToolkitSource({
 				sourceType : "webcam",
 			});
@@ -80,10 +72,6 @@
 				onResize()
 			});
 			
-			////////////////////////////////////////////////////////////
-			// setup arToolkitContext
-			////////////////////////////////////////////////////////////	
-
 			// create atToolkitContext
 			arToolkitContext = new THREEx.ArToolkitContext({
 				cameraParametersUrl: "AR-Toolkit.js/data/data/camera_para.dat",
@@ -95,39 +83,29 @@
 				camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 			});
 
-			//////////////////////////////////////////////////////////////////////////////
-			//		markerRoot1
-			//////////////////////////////////////////////////////////////////////////////
-
-			// build markerControls
+			// build markerControls for marker1
 			markerRoot1 = new THREE.Group
 			scene.add(markerRoot1)
 			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 				type : "pattern",
 				patternUrl : "AR-Toolkit.js/data/data/patt.hiro"
-				// patternUrl : THREEx.ArToolkitContext.baseURL + "../data/data/patt.kanji",
 			})
 
-			// add a gizmo in the center of the marker
+			// add a gizmo in the center of the marker1
 			var geometry = new THREE.OctahedronGeometry( 0.2, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot1.add( mesh );
 
-			//////////////////////////////////////////////////////////////////////////////
-			//		markerRoot2
-			//////////////////////////////////////////////////////////////////////////////
-
-			// build markerControls
+			// build markerControls for marker2
 			markerRoot2 = new THREE.Group
 			scene.add(markerRoot2)
 			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
 				type : "pattern",
-				// patternUrl : THREEx.ArToolkitContext.baseURL + "../data/data/patt.hiro",
 				patternUrl : "AR-Toolkit.js/data/data/patt.kanji"
 			})
 
-			// add a gizmo in the center of the marker
+			// add a gizmo in the center of the marker2
 			var geometry = new THREE.OctahedronGeometry( 0.2, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
