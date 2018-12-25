@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distance Between Two Markers</title>
+	<title>Measure Distance!</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -92,7 +92,7 @@
 			})
 
 			// add a gizmo in the center of the marker1
-			var geometry = new THREE.TorusKnotGeometry(0.1, 0.1, 64, 16);
+			var geometry = new THREE.TorusKnotGeometry(0.05, 0.01, 64, 16);
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot1.add( mesh );
@@ -106,7 +106,7 @@
 			})
 
 			// add a gizmo in the center of the marker2
-			var geometry = new THREE.TorusKnotGeometry(0.1, 0.1, 64, 16);
+			var geometry = new THREE.TorusKnotGeometry(0.05, 0.01, 64, 16);
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot2.add( mesh );
