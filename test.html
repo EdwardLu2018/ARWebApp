@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>AR Test</title>
+	<title>AR-Test</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -151,11 +151,12 @@
 			geometry.verticesNeedUpdate = true
 
 			geometry.computeBoundingSphere();
-			lineMesh.computeLineDistances();
 			
 			var length = markerRoot1.position.distanceTo(markerRoot2.position)
 			lineMesh.material.scale = length * 10
 			lineMesh.material.needsUpdate = true
+
+			lineMesh.computeLineDistances();
 		});
 
 		updateFuncs.push(function displayMeasurement(){
