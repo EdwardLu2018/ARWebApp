@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of markers]</p>
 	</div>
 
 	<script>
@@ -33,6 +33,9 @@
 
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
+
+		var clickedMarker = null;
+		var bothMarkersSelected = false;
 
 		// array of all functions that update the view
 		var updateFuncs = [];
@@ -126,9 +129,11 @@
 			window.addEventListener("touchstart", onTouchStart)
 			window.addEventListener("mousemove", onMouseMove)
 			window.addEventListener("touchmove", onTouchMove)
+			window.addEventListener("mouseup", onMouseUp)
+			window.addEventListener("touchend", onTouchEnd)
 		}
 
-		updateFuncs.push(function updateLineMesh(){
+		function updateLineMesh(){
 			var geometry = lineMesh.geometry
 			geometry.vertices[0].copy(markerRoots[0].position)
 			geometry.vertices[1].copy(markerRoots[1].position)
@@ -140,9 +145,9 @@
 			var length = markerRoots[0].position.distanceTo(markerRoots[1].position)
 			lineMesh.material.scale = length * 10
 			lineMesh.material.needsUpdate = true
-		});
+		}
 
-		updateFuncs.push(function displayMeasurement(){
+		function displayMeasurement(){
 			// update sprite position
 			sprite.position.addVectors(markerRoots[0].position, markerRoots[1].position).multiplyScalar(1/2)
 
@@ -156,7 +161,14 @@
 			context.fillStyle = "#fff";
 			context.fillText(text, canvas.width/4, 3*canvas.height/4 )
 			sprite.material.map.needsUpdate = true
-		});
+		}
+
+		function drawLine(x1,y1,z1, x2,y2,z2){
+			var newGeometry = lineMesh.geometry;
+			newGeometry.vertices[0].copy( new THREE.Vector3(x1, y1, z1) );
+			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2, z2) );
+			newGeometry.verticesNeedUpdate = true;
+		}
 
 		updateFuncs.push(function updateScanner(){
 			if (document.querySelector(".scanningSpinner") != null){
@@ -183,7 +195,6 @@
 		    vector.project(camera);
 
 		    return { x: vector.x * 2, y: vector.y };
-
 		};
 
 		updateFuncs.push(function updateARtoolkit(){
@@ -201,12 +212,26 @@
 			}
 		}
 
-		function onMouseDown(event){
-			onMouseMove(event);
+		function isClose(pos1, pos2){
+			return Math.abs(pos1 - pos2) <= 0.05;
+		}
+
+		function isCloseToMouse(a){
+			return isClose(mouse.x, a.x) && isClose(mouse.y, a.y);
+		}
+
+		function onMouseDown(){
+			for (var i = 0; i < markerRoots.length; i++){
+				var markerProj = toScreenPosition(markerRoots[i], camera);
+				if (isCloseToMouse(markerProj)){
+					clickedMarker = markerRoots[i];
+				}
+			}
 		}
 
 		function onTouchStart(event){
-			onTouchMove(event);
+			event.preventDefault();
+			onMouseDown();
 		}
 
 		function onMouseMove(event){
@@ -221,6 +246,22 @@
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
+		function onMouseUp(){
+			for (var i = 0; i < markerRoots.length; i++){
+				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerRoots[i])){
+					bothMarkersSelected = true;
+				}
+				else {
+					drawLine(0,0,0,0,0,0)
+				}
+			}
+			clickedMarker = null;
+		}
+
+		function onTouchEnd(){
+			onMouseUp();
+		}
+
 		function render(){
 			renderer.render( scene, camera );
 		}
@@ -230,6 +271,15 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
+
+			if (clickedMarker != null && !bothMarkersSelected){
+				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
+						 	      mouse.x, mouse.y, mouse.z);
+			}
+			else if (bothMarkersSelected){
+				updateLineMesh();
+				displayMeasurement();
+			}
 
 			render();
 		}
