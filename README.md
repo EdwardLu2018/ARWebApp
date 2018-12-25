@@ -1,10 +1,16 @@
 # AR Web Application
 
-index.html is main file
+Allow camera access.
 
-Go to https://edwardlu2018.github.io/ARWebApp/ to open webapp. Allow camera access.
+Pineapple model on python marker:
+
+https://edwardlu2018.github.io/ARWebApp/ 
 
 Pinapple Model by Jason Toff - https://poly.google.com/view/48qW80_L0lP
+
+Measuring distance from hiro to kanji marker:
+
+https://edwardlu2018.github.io/ARWebApp/test.html 
 
 Goals: 
 1. To recognize custom markers
