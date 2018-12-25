@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distance</title>
+	<title>Measure Distances</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -174,9 +174,6 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-
-					var proj = toScreenPosition(markerRoots[0], camera);
-					document.getElementById("pos").innerHTML = proj.x + ", " + proj.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -227,6 +224,7 @@
 					clickedMarker = markerRoots[i];
 				}
 			}
+			document.getElementById("pos").innerHTML = clickedMarker;
 		}
 
 		function onTouchStart(event){
