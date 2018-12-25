@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>AR-Test</title>
+	<title>Measure Distance</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -32,6 +32,8 @@
 		var arToolkitSource, arToolkitContext;
 
 		var markerRoot1, markerRoot2;
+		var markers = ["hiro", "kanji"];
+		var markerRoots = [];
 
 		// array of all functions that update the view
 		var updateFuncs = [];
@@ -83,33 +85,23 @@
 				camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
 			});
 
-			// build markerControls for marker1
-			markerRoot1 = new THREE.Group
-			scene.add(markerRoot1)
-			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-				type : "pattern",
-				patternUrl : "AR-Toolkit.js/data/data/patt.hiro"
-			})
+			for (var i = 0; i < markers.length; i++){
+				// build markerControls for marker1
+				var markerRoot = new THREE.Group
+				scene.add(markerRoot)
+				var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+					type: "pattern",
+					patternUrl: "AR-Toolkit.js/data/data/patt." + markers[i]
+				})
 
-			// add a gizmo in the center of the marker1
-			var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
-			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
-			var mesh = new THREE.Mesh( geometry, material );
-			markerRoot1.add( mesh );
+				// add a gizmo in the center of the marker1
+				var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
+				var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
+				var mesh = new THREE.Mesh( geometry, material );
+				markerRoot.add( mesh );
 
-			// build markerControls for marker2
-			markerRoot2 = new THREE.Group
-			scene.add(markerRoot2)
-			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
-				type : "pattern",
-				patternUrl : "AR-Toolkit.js/data/data/patt.kanji"
-			})
-
-			// add a gizmo in the center of the marker2
-			var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
-			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
-			var mesh = new THREE.Mesh( geometry, material );
-			markerRoot2.add( mesh );
+				markerRoots.push(markerRoot);
+			}
 
 			// make measurementContainer
 			measurementContainer = new THREE.Group
@@ -146,24 +138,24 @@
 
 		updateFuncs.push(function updateLineMesh(){
 			var geometry = lineMesh.geometry
-			geometry.vertices[0].copy(markerRoot1.position)
-			geometry.vertices[1].copy(markerRoot2.position)
+			geometry.vertices[0].copy(markerRoots[0].position)
+			geometry.vertices[1].copy(markerRoots[1].position)
 			geometry.verticesNeedUpdate = true
 
 			geometry.computeBoundingSphere();
 			lineMesh.computeLineDistances();
 			
-			var length = markerRoot1.position.distanceTo(markerRoot2.position)
+			var length = markerRoots[0].position.distanceTo(markerRoots[1].position)
 			lineMesh.material.scale = length * 10
 			lineMesh.material.needsUpdate = true
 		});
 
 		updateFuncs.push(function displayMeasurement(){
 			// update sprite position
-			sprite.position.addVectors(markerRoot1.position, markerRoot2.position).multiplyScalar(1/2)
+			sprite.position.addVectors(markerRoots[0].position, markerRoots[1].position).multiplyScalar(1/2)
 
 			// get the text to display
-			var length = markerRoot1.position.distanceTo(markerRoot2.position)
+			var length = markerRoots[0].position.distanceTo(markerRoots[1].position)
 			var text = length.toFixed(2)
 			
 			// put the text in the sprite
@@ -176,7 +168,7 @@
 
 		updateFuncs.push(function updateScanner(){
 			if (document.querySelector(".scanningSpinner") != null){
-				if (markerRoot1.visible === true && markerRoot2.visible === true){
+				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
 				}
 				else{
