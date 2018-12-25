@@ -23,8 +23,8 @@
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
-		<!-- <br/> -->
-		<!-- <p id="pos">position</p> -->
+		<br/>
+		<p id="pos">position</p>
 	</div>
 
 	<script>
@@ -223,6 +223,8 @@
 			updateFuncs.forEach(function(func){
 				func();
 			});
+
+			document.getElementById("pos").innerHTML = markerRoots[0].getWorldPosition().x + ", " + markerRoots[0].getWorldPosition().y;
 
 			render();
 		}
