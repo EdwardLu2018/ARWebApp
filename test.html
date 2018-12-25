@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distances</title>
+	<title>Measure Distance</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -35,7 +35,7 @@
 		var markerRoots = [];
 
 		var clickedMarker = null;
-		var bothMarkersSelected = false;
+		var oneMarkerSelected = false, bothMarkersSelected = false;
 
 		// array of all functions that update the view
 		var updateFuncs = [];
@@ -222,6 +222,7 @@
 				var markerProj = toScreenPosition(markerRoots[i], camera);
 				if (isCloseToMouse(markerProj)){
 					clickedMarker = markerRoots[i];
+					oneMarkerSelected = true;
 				}
 			}
 			document.getElementById("pos").innerHTML = clickedMarker;
@@ -272,9 +273,10 @@
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
 
-			if (clickedMarker != null && !bothMarkersSelected){
-				drawLine(clickedMarker.getWorldPosition().x, clickedMarker.getWorldPosition().position.y, clickedMarker.getWorldPosition().position.z, 
-						 	      mouse.x, mouse.y, 0);
+			if (oneMarkerSelected && !bothMarkersSelected){
+				var markerProj = toScreenPosition(clickedMarker, camera);
+				drawLine(markerProj.x, markerProj.y, 0, 
+						 mouse.x, mouse.y, 0);
 			}
 			else if (bothMarkersSelected){
 				updateLineMesh();
