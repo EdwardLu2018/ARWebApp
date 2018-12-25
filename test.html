@@ -219,7 +219,7 @@
 		}
 
 		function onTouchMove(event){
-			mouse.x = event.touches[0].clientX / window.innerWidth
+			mouse.x = event.touches[0].clientX
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
