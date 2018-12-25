@@ -273,10 +273,10 @@
 			updateFuncs.forEach(function(func){ func(); });
 
 			if (clickedMarker != null && !bothMarkersSelected){
-				document.getElementById("pos").innerHTML = mouse.x + ", " + mouse.y;
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(markerProj.x, markerProj.y, 0, 
 						 mouse.x, mouse.y, 0);
+				document.getElementById("pos").innerHTML = mouse.x + ", " + mouse.y;
 			}
 			else if (bothMarkersSelected){
 				updateLineMesh();
