@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[pos of marker1]</p>
 	</div>
 
 	<script>
@@ -175,15 +175,12 @@
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
-		    var widthHalf = 0.5*renderer.context.window.innerWidth;
-		    var heightHalf = 0.5*renderer.context.window.innerHeight;
-
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
-		    vector.x = ( vector.x * widthHalf ) + widthHalf;
-		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+		    vector.x = ( vector.x / window.innerWidth ) * 2 - 1;
+		    vector.y = - ( vector.y / window.innerHeight ) * 2 + 1;
 
 		    return { x: vector.x, y: vector.y };
 
