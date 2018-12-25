@@ -195,6 +195,7 @@
 
 		function onTouchStart(event){
 			onTouchMove(event);
+			document.getElementById("text").innerHTML = objects;
 		}
 
 		function onMouseMove(event){
@@ -221,9 +222,7 @@
 			requestAnimationFrame(animate);
 
 			// runs all update functions 
-			updateFuncs.forEach(function(func){
-				func();
-			});
+			updateFuncs.forEach(function(func){ func(); });
 
 			render();
 		}
