@@ -4,13 +4,13 @@
 	<!-- three.js library -->
 	<script src='three.js/build/three.js'></script>
 	<!-- jsartookit -->
-	<script src="ARToolKit.js/vendor/jsartoolkit5/build/artoolkit.min.js"></script>
-	<script src="ARToolKit.js/vendor/jsartoolkit5/js/artoolkit.api.js"></script>
+	<script src="ARToolkit.js/vendor/jsartoolkit5/build/artoolkit.min.js"></script>
+	<script src="ARToolkit.js/vendor/jsartoolkit5/js/artoolkit.api.js"></script>
 	<!-- include threex.artoolkit -->
-	<script src="ARToolKit.js/src/threex/threex-artoolkitsource.js"></script>
-	<script src="ARToolKit.js/src/threex/threex-artoolkitcontext.js"></script>
-	<script src="ARToolKit.js/src/threex/threex-arbasecontrols.js"></script>
-	<script src="ARToolKit.js/src/threex/threex-armarkercontrols.js"></script>
+	<script src="ARToolkit.js/src/threex/threex-artoolkitsource.js"></script>
+	<script src="ARToolkit.js/src/threex/threex-artoolkitcontext.js"></script>
+	<script src="ARToolkit.js/src/threex/threex-arbasecontrols.js"></script>
+	<script src="ARToolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
 
 	<title>AR test</title>
@@ -28,9 +28,10 @@
 	</div>
 
 	<script>
-		var scene, camera, renderer, clock, deltaTime, totalTime;
+		var scene, camera, renderer, deltaTime, totalTime;
 		var arToolkitSource, arToolkitContext;
 		var markerRoot1, markerRoot2;
+		var updateFuncs = [];
 
 		var mouse = new THREE.Vector2();
 		var mouseVec = new THREE.Vector3();
@@ -41,10 +42,10 @@
 		var container, lineMesh;
 		var canvas, context, texture, sprite;
 
-		initialize();
+		init();
 		animate();
 
-		function initialize(){
+		function init(){
 			scene = new THREE.Scene();
 
 			let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
@@ -63,10 +64,6 @@
 			renderer.domElement.style.top = '0px'
 			renderer.domElement.style.left = '0px'
 			document.body.appendChild( renderer.domElement );
-
-			clock = new THREE.Clock();
-			deltaTime = 0;
-			totalTime = 0;
 			
 			////////////////////////////////////////////////////////////
 			// setup arToolkitSource
@@ -179,7 +176,7 @@
 			window.addEventListener('touchmove', onTouchMove)
 		}
 
-		function updateLineMesh(){
+		updateFuncs.push(function updateLineMesh(){
 			var geometry = lineMesh.geometry
 			geometry.vertices[0].copy(markerRoot1.position)
 			geometry.vertices[1].copy(markerRoot2.position)
@@ -191,9 +188,9 @@
 			var length = markerRoot1.position.distanceTo(markerRoot2.position)
 			lineMesh.material.scale = length * 10
 			lineMesh.material.needsUpdate = true
-		}
+		});
 
-		function displayMeasurement(){
+		updateFuncs.push(function displayMeasurement(){
 			// update sprite position
 			sprite.position.addVectors(markerRoot1.position, markerRoot2.position).multiplyScalar(1/2)
 
@@ -207,7 +204,24 @@
 			context.fillStyle = '#fff';
 			context.fillText(text, canvas.width/4, 3*canvas.height/4 )
 			sprite.material.map.needsUpdate = true
-		}
+		});
+
+		updateFuncs.push(function updateScanner(){
+			if (document.querySelector('.scanningSpinner') != null){
+				if (markerRoot1.visible === true && markerRoot2.visible === true){
+					document.querySelector('.scanningSpinner').style.display = 'none'
+				}
+				else{
+					document.querySelector('.scanningSpinner').style.display = ''
+				}
+			}
+		});
+
+		updateFuncs.push(function updateARtoolkit(){
+			// update artoolkit on every frame
+			if ( arToolkitSource.ready !== false )
+				arToolkitContext.update( arToolkitSource.domElement );
+		});
 
 		function onMouseDown(event){
 			onMouseMove(event);
@@ -234,32 +248,19 @@
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
-		function update(){
-			// update artoolkit on every frame
-			if ( arToolkitSource.ready !== false )
-				arToolkitContext.update( arToolkitSource.domElement );
-		}
-
 		function render(){
 			renderer.render( scene, camera );
 		}
 
 		function animate(){
 			requestAnimationFrame(animate);
-			deltaTime = clock.getDelta();
-			totalTime += deltaTime;
-			update();
-			updateLineMesh();
-			displayMeasurement();
+
+			// runs all update functions 
+			updateFuncs.forEach(function(func){
+				func();
+			});
+
 			render();
-			if (document.querySelector('.scanningSpinner') != null){
-				if (markerRoot1.visible === true && markerRoot2.visible === true){
-					document.querySelector('.scanningSpinner').style.display = 'none'
-				}
-				else{
-					document.querySelector('.scanningSpinner').style.display = ''
-				}
-			}
 		}
 
 	</script>
