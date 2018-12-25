@@ -276,7 +276,7 @@
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(markerProj.x, markerProj.y, 0, 
 						 mouse.x, mouse.y, 0);
-				document.getElementById("pos").innerHTML = mouse.x + ", " + mouse.y;
+				document.getElementById("pos").innerHTML = markerProj.x + ", " + markerProj.y;
 			}
 			else if (bothMarkersSelected){
 				updateLineMesh();
