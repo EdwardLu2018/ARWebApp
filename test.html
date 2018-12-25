@@ -105,8 +105,8 @@
 			// build linemesh
 			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
 			var geometry = new THREE.Geometry();
-			geometry.vertices.push(new THREE.Vector3(1, 0, -3));
-			geometry.vertices.push(new THREE.Vector3(-1, 0, -3));
+			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
+			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
 			lineMesh = new THREE.Line(geometry, material);
 			measurementContainer.add( lineMesh )
 
