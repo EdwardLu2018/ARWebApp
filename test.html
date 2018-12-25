@@ -274,7 +274,7 @@
 			updateFuncs.forEach(function(func){ func(); });
 
 			if (clickedMarker != null && !bothMarkersSelected){
-				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
+				drawLine(clickedMarker.getWorldPosition().x, clickedMarker.getWorldPosition().position.y, clickedMarker.getWorldPosition().position.z, 
 						 	      mouse.x, mouse.y, mouse.z);
 			}
 			else if (bothMarkersSelected){
