@@ -175,15 +175,15 @@
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
-		    var widthHalf = renderer.context.canvas.width;
-		    var heightHalf = renderer.context.canvas.height;
+		    var widthHalf = 0.5*renderer.context.canvas.width;
+		    var heightHalf = 0.5*renderer.context.canvas.height;
 
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
-		    vector.x = ( vector.x * widthHalf );
-		    vector.y = - ( vector.y * heightHalf );
+		    vector.x = ( vector.x * widthHalf ) + widthHalf;
+		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
 
 		    return { x: vector.x, y: vector.y };
 
@@ -219,7 +219,9 @@
 		}
 
 		function onTouchMove(event){
-			mouse.x = event.touches[0].clientX
+			var widthHalf = 0.5*renderer.context.canvas.width;
+		    var heightHalf = 0.5*renderer.context.canvas.height;
+			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
