@@ -92,7 +92,7 @@
 			})
 
 			// add a gizmo in the center of the marker1
-			var geometry = new THREE.OctahedronGeometry( 0.2, 0 )
+			var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot1.add( mesh );
@@ -106,7 +106,7 @@
 			})
 
 			// add a gizmo in the center of the marker2
-			var geometry = new THREE.OctahedronGeometry( 0.2, 0 )
+			var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot2.add( mesh );
@@ -116,7 +116,7 @@
 			scene.add( measurementContainer )
 
 			// build linemesh
-			var material = new THREE.LineDashedMaterial( {dashSize: .25, gapSize: .25} );
+			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
 			var geometry = new THREE.Geometry();
 			geometry.vertices.push(new THREE.Vector3(1, 0, -3));
 			geometry.vertices.push(new THREE.Vector3(-1, 0, -3));
