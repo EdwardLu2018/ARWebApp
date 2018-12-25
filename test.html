@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of first marker]</p>
+		<p id="pos">[position of marker]</p>
 	</div>
 
 	<script>
@@ -181,10 +181,7 @@
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
-
-		    vector.x = ( vector.x * widthHalf ) + widthHalf;
-		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
-
+		    
 		    return { x: vector.x, y: vector.y };
 
 		};
@@ -213,18 +210,14 @@
 		}
 
 		function onMouseMove(event){
-			var widthHalf = 0.5*renderer.context.canvas.width;
-			var heightHalf = 0.5*renderer.context.canvas.height;
-			mouse.x = ( event.clientX * widthHalf ) + widthHalf;
-			mouse.y = - ( event.clientY * heightHalf ) + heightHalf;
+			mouse.x = event.clientX
+			mouse.y = event.clientY
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
-			var widthHalf = 0.5*renderer.context.canvas.width;
-			var heightHalf = 0.5*renderer.context.canvas.height;
-			mouse.x = ( event.touches[0].clientX * widthHalf ) + widthHalf;
-			mouse.y = - ( event.touches[0].clientY * heightHalf ) + heightHalf;
+			mouse.x = event.touches[0].clientX
+			mouse.y = event.touches[0].clientY
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
