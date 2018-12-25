@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>AR Test</title>
+	<title>AR-test</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -46,18 +46,18 @@
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
 
 		init();
-		//animate();
+		animate();
 
 		function init(){
 			scene = new THREE.Scene();
-			camera = new THREE.Camera();
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer({
 				antialias : true,
 				alpha: true
 			});
 			renderer.setClearColor(new THREE.Color("lightgrey"), 0)
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize( 640, 480 );
 			renderer.domElement.style.position = "absolute"
 			renderer.domElement.style.top = "0px"
 			renderer.domElement.style.left = "0px"
@@ -212,16 +212,16 @@
 		function onMouseMove(event){
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			//raycaster.setFromCamera( mouse.clone(), camera ); 
-			//objects = raycaster.intersectObjects(scene.children);
+			raycaster.setFromCamera( mouse.clone(), camera ); 
+			objects = raycaster.intersectObjects(scene.children);
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
-			//raycaster.setFromCamera( mouse.clone(), camera ); 
-			//objects = raycaster.intersectObjects(scene.children);
+			raycaster.setFromCamera( mouse.clone(), camera ); 
+			objects = raycaster.intersectObjects(scene.children);
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
@@ -229,20 +229,16 @@
 			renderer.render( scene, camera );
 		}
 
-		var lastTimeMsec = null
-		requestAnimationFrame(function animate(nowMsec){
+		function animate(){
 			requestAnimationFrame(animate);
-			render();
-
-			lastTimeMsec = lastTimeMsec || nowMsec-1000/60
-			var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
-			lastTimeMsec = nowMsec
 
 			// runs all update functions 
-			updateFuncs.forEach(function(updateFunc){
-				updateFunc(deltaMsec/1000, nowMsec/1000);
+			updateFuncs.forEach(function(func){
+				func();
 			});
-		});
+
+			render();
+		}
 
 	</script>
 
