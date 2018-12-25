@@ -13,7 +13,7 @@
 	<script src="ARToolKit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
 
-	<title>AR test 1</title>
+	<title>AR test</title>
 </head>
 
 <body style='margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;'>
@@ -38,6 +38,9 @@
 		var raycaster = new THREE.Raycaster();
 		var objects;
 
+		var container, lineMesh;
+		var canvas, context, texture, sprite;
+
 		initialize();
 		animate();
 
@@ -55,7 +58,7 @@
 				alpha: true
 			});
 			renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-			renderer.setSize( 640, 480 );
+			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.domElement.style.position = 'absolute'
 			renderer.domElement.style.top = '0px'
 			renderer.domElement.style.left = '0px'
@@ -120,7 +123,7 @@
 			})
 
 			// add a gizmo in the center of the marker
-			var geometry = new THREE.OctahedronGeometry( 1, 0 )
+			var geometry = new THREE.OctahedronGeometry( 0.5, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot1.add( mesh );
@@ -139,16 +142,71 @@
 			})
 
 			// add a gizmo in the center of the marker
-			var geometry = new THREE.OctahedronGeometry( 1, 0 )
+			var geometry = new THREE.OctahedronGeometry( 0.5, 0 )
 			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
 			var mesh = new THREE.Mesh( geometry, material );
 			markerRoot2.add( mesh );
+
+			// make container
+			container = new THREE.Group
+			scene.add( container )
+
+			// make linemesh
+			var material = new THREE.LineDashedMaterial( {dashSize: .25, gapSize: .25} );
+			var geometry = new THREE.Geometry();
+			geometry.vertices.push(new THREE.Vector3(1, 0, -3));
+			geometry.vertices.push(new THREE.Vector3(-1, 0, -3));
+			lineMesh = new THREE.Line(geometry, material);
+			container.add( lineMesh )
+
+			// build texture
+			canvas = document.createElement( 'canvas' );
+			canvas.width = 128; 
+			canvas.height = 64;
+			context = canvas.getContext( '2d' );
+			texture = new THREE.CanvasTexture( canvas );
+
+			// build sprite
+			var material = new THREE.SpriteMaterial( {map: texture, color: 0xffffff});
+			sprite = new THREE.Sprite( material );
+			sprite.scale.multiplyScalar(0.5)
+			container.add( sprite )
 
 			// event handlers
 			window.addEventListener('mousedown', onMouseDown)
 			window.addEventListener('touchstart', onTouchStart)
 			window.addEventListener('mousemove', onMouseMove)
 			window.addEventListener('touchmove', onTouchMove)
+		}
+
+		function updateLineMesh(){
+			var geometry = lineMesh.geometry
+			geometry.vertices[0].copy(markerRoot1.position)
+			geometry.vertices[1].copy(markerRoot2.position)
+			geometry.verticesNeedUpdate = true
+
+			geometry.computeBoundingSphere();
+			geometry.computeLineDistances();
+			
+			var length = markerRoot1.position.distanceTo(markerRoot2.position)
+			lineMesh.material.scale = length * 10
+			lineMesh.material.needsUpdate = true
+		}
+
+		function displayMeasurement(){
+			// update sprite position
+			sprite.position.addVectors(markerRoot1.position, markerRoot2.position).multiplyScalar(1/2)
+
+			// get the text to display
+			var length = markerRoot1.position.distanceTo(markerRoot2.position)
+			var text = length.toFixed(2)
+			
+			// put the text in the sprite
+			context.font = '40px monospace';
+			context.clearRect( 0, 0, canvas.width, canvas.height );
+			context.fillStyle = '#fff';
+			context.fillText(text, canvas.width/4, 3*canvas.height/4 )
+			sprite.material.map.needsUpdate = true
 		}
 
 		function onMouseDown(event){
@@ -191,6 +249,8 @@
 			deltaTime = clock.getDelta();
 			totalTime += deltaTime;
 			update();
+			updateLineMesh();
+			displayMeasurement();
 			render();
 			if (document.querySelector('.scanningSpinner') != null){
 				if (markerRoot1.visible === true && markerRoot2.visible === true){
@@ -201,6 +261,7 @@
 				}
 			}
 		}
+
 	</script>
 
 	<!-- Scanning animation when the marker are not visible -->
