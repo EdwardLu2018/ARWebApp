@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker]</p>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -162,7 +162,7 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					
+
 					var proj = toScreenPosition(markerRoots[0], camera);
 					document.getElementById("pos").innerHTML = proj.x + ", " + proj.y;
 				}
@@ -213,8 +213,8 @@
 		}
 
 		function onMouseMove(event){
-			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			mouse.x = event.clientX
+			mouse.y = event.clientY
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
