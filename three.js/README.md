@@ -1,78 +1,91 @@
-# threex-artoolkit
+three.js
+========
 
-threex.artookit is the three.js extension to easily handle [artoolkit](https://github.com/artoolkit/jsartoolkit5).
-It is the main part of my [AR.js effort](http://github.com/jeromeetienne/AR.js)
+[![NPM package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![Build Status][build-status]][build-status-url]
+[![Dependencies][dependencies]][dependencies-url]
+[![Dev Dependencies][dev-dependencies]][dev-dependencies-url]
+[![Language Grade][lgtm]][lgtm-url]
 
-# Architechture
+#### JavaScript 3D library ####
 
-threex.artoolkit is composed of 3 classes
+The aim of the project is to create an easy to use, lightweight, 3D library. The library provides Canvas 2D, SVG, CSS3D and WebGL renderers.
 
-- ```THREEx.ArToolkitSource``` : It is the image which is analyzed to do the position tracking.
-  It can be the webcam, a video or even an image
-- ```THREEx.ArToolkitContext```: It is the main engine. It will actually find the marker position
-  in the image source.
-- ```THREEx.ArMarkerControls```: it controls the position of the marker
-  It use the classical [three.js controls API](https://github.com/mrdoob/three.js/tree/master/examples/js/controls). 
-  It will make sure to position your content right on top of the marker. 
+[Examples](http://threejs.org/examples/) &mdash;
+[Documentation](http://threejs.org/docs/) &mdash;
+[Wiki](https://github.com/mrdoob/three.js/wiki) &mdash;
+[Migrating](https://github.com/mrdoob/three.js/wiki/Migration-Guide) &mdash;
+[Questions](http://stackoverflow.com/questions/tagged/three.js) &mdash;
+[Forum](https://discourse.threejs.org/) &mdash;
+[Gitter](https://gitter.im/mrdoob/three.js) &mdash;
+[Slack](https://threejs-slack.herokuapp.com/)
 
+### Usage ###
 
-### THREEx.ArMarkerControls 
+Download the [minified library](http://threejs.org/build/three.min.js) and include it in your HTML, or install and import it as a [module](http://threejs.org/docs/#manual/introduction/Import-via-modules),
+Alternatively see [how to build the library yourself](https://github.com/mrdoob/three.js/wiki/Build-instructions).
+
+```html
+<script src="js/three.min.js"></script>
+```
+
+This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the document.body element. Finally, it animates the cube within the scene for the camera.
 
 ```javascript
-var parameters = {
-	// size of the marker in meter
-	size : 1,
-	// type of marker - ['pattern', 'barcode', 'unknown' ]
-	type : 'unknown',
-	// url of the pattern - IIF type='pattern'
-	patternUrl : null,
-	// value of the barcode - IIF type='barcode'
-	barcodeValue : null,
-	// change matrix mode - [modelViewMatrix, cameraTransformMatrix]
-	changeMatrixMode : 'modelViewMatrix',
+var camera, scene, renderer;
+var geometry, material, mesh;
+
+init();
+animate();
+
+function init() {
+
+	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+	camera.position.z = 1;
+
+	scene = new THREE.Scene();
+
+	geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+	material = new THREE.MeshNormalMaterial();
+
+	mesh = new THREE.Mesh( geometry, material );
+	scene.add( mesh );
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer.domElement );
+
+}
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	mesh.rotation.x += 0.01;
+	mesh.rotation.y += 0.02;
+
+	renderer.render( scene, camera );
+
 }
 ```
 
-### THREEx.ArMarkerContext
+If everything went well you should see [this](https://jsfiddle.net/f2Lommf5/).
 
-```javascript
-var parameters = {
-	// debug - true if one should display artoolkit debug canvas, false otherwise
-	debug: false,
-	// the mode of detection - ['color', 'color_and_matrix', 'mono', 'mono_and_matrix']
-	detectionMode: 'color_and_matrix',
-	// type of matrix code - valid iif detectionMode end with 'matrix' - [3x3, 3x3_HAMMING63, 3x3_PARITY65, 4x4, 4x4_BCH_13_9_3, 4x4_BCH_13_5_5]
-	matrixCodeType: '3x3',
-	
-	// url of the camera parameters
-	cameraParametersUrl: 'parameters/camera_para.dat',
+### Change log ###
 
-	// tune the maximum rate of pose detection in the source image
-	maxDetectionRate: 60,
-	// resolution of at which we detect pose in the source image
-	canvasWidth: 640,
-	canvasHeight: 480,
-	
-	// enable image smoothing or not for canvas copy - default to true
-	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled
-	imageSmoothingEnabled : true,
-}
-```
+[Releases](https://github.com/mrdoob/three.js/releases)
 
-### THREEx.ArMarkerSource
 
-```javascript
-var parameters = {
-	// type of source - ['webcam', 'image', 'video']
-	sourceType : 'webcam',
-	// url of the source - valid if sourceType = image|video
-	sourceUrl : null,
-	
-	// resolution of at which we initialize the source image
-	sourceWidth: 640,
-	sourceHeight: 480,
-	// resolution displayed for the source 
-	displayWidth: 640,
-	displayHeight: 480,
-}
-```
+[npm]: https://img.shields.io/npm/v/three.svg
+[npm-url]: https://www.npmjs.com/package/three
+[build-size]: https://badgen.net/bundlephobia/minzip/three
+[build-size-url]: https://bundlephobia.com/result?p=three
+[build-status]: https://travis-ci.org/mrdoob/three.js.svg?branch=dev
+[build-status-url]: https://travis-ci.org/mrdoob/three.js
+[dependencies]: https://img.shields.io/david/mrdoob/three.js.svg
+[dependencies-url]: https://david-dm.org/mrdoob/three.js
+[dev-dependencies]: https://img.shields.io/david/dev/mrdoob/three.js.svg
+[dev-dependencies-url]: https://david-dm.org/mrdoob/three.js#info=devDependencies
+[lgtm]: https://img.shields.io/lgtm/grade/javascript/g/mrdoob/three.js.svg?label=code%20quality
+[lgtm-url]: https://lgtm.com/projects/g/mrdoob/three.js/
