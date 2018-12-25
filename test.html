@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">position</p>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -166,6 +166,7 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+					document.getElementById("pos").innerHTML = markerRoots[0].getWorldPosition().x + ", " + markerRoots[0].getWorldPosition().y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -223,8 +224,6 @@
 			updateFuncs.forEach(function(func){
 				func();
 			});
-
-			document.getElementById("pos").innerHTML = markerRoots[0].getWorldPosition().x + ", " + markerRoots[0].getWorldPosition().y;
 
 			render();
 		}
