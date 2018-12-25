@@ -24,7 +24,9 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of marker]</p>
+		<br/>
+		<p id="pos1">[position of canvas]</p>
 	</div>
 
 	<script>
@@ -163,6 +165,8 @@
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
 					document.getElementById("pos").innerHTML = sprite.getWorldPosition().x + ", " + sprite.getWorldPosition().y;
+					var rect = canvas.getBoundingClientRect();
+					document.getElementById("pos1").innerHTML = rect.left + ", " + rect.top;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
