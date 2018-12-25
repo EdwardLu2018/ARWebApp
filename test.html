@@ -222,7 +222,7 @@
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 			raycaster.setFromCamera( mouse.clone(), camera ); 
 			objects = raycaster.intersectObjects(scene.children);
-			document.getElementById("text").innerHTML = objects;
+			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function render(){
