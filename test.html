@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of marker]</p>
 	</div>
 
 	<script>
@@ -219,8 +219,8 @@
 		}
 
 		function onTouchMove(event){
-			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
-			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
+			mouse.x = event.touches[0].clientX
+			mouse.y = event.touches[0].clientY
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
