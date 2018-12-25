@@ -46,7 +46,7 @@
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
 
 		init();
-		animate();
+		//animate();
 
 		function init(){
 			scene = new THREE.Scene();
@@ -230,7 +230,7 @@
 		}
 
 		var lastTimeMsec = null
-		function animate(nowMsec){
+		requestAnimationFrame(function animate(nowMsec){
 			requestAnimationFrame(animate);
 			render();
 
@@ -242,7 +242,7 @@
 			updateFuncs.forEach(function(updateFunc){
 				updateFunc(deltaMsec/1000, nowMsec/1000);
 			});
-		}
+		});
 
 	</script>
 
