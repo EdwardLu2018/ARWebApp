@@ -272,7 +272,7 @@
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
 
-			if (clickedMarker != null; && !bothMarkersSelected){
+			if (clickedMarker != null && !bothMarkersSelected){
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(markerProj.x, markerProj.y, 0, 
 						 mouse.x, mouse.y, 0);
