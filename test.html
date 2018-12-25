@@ -31,7 +31,6 @@
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
-		var markerRoot1, markerRoot2;
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
 
@@ -179,17 +178,17 @@
 
 		updateFuncs.push(function updateARtoolkit(){
 			// update artoolkit on every frame
-			if ( arToolkitSource.ready !== false )
+			if (arToolkitSource.ready !== false){
 				arToolkitContext.update( arToolkitSource.domElement );
+			}
 		});
 
 		function onResize(){
 			arToolkitSource.onResizeElement()
 			arToolkitSource.copyElementSizeTo(renderer.domElement)	
-			if ( arToolkitContext.arController !== null )
-			{
+			if (arToolkitContext.arController !== null){
 				arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
-			}	
+			}
 		}
 
 		function onMouseDown(event){
