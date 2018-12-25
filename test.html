@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker]</p>
+		<p id="pos">[position of marker1]</p>
 		<br/>
 		<p id="pos1">[position of canvas]</p>
 	</div>
@@ -166,7 +166,7 @@
 					document.querySelector(".scanningSpinner").style.display = "none"
 					document.getElementById("pos").innerHTML = sprite.getWorldPosition().x + ", " + sprite.getWorldPosition().y;
 					var rect = canvas.getBoundingClientRect();
-					document.getElementById("pos1").innerHTML = rect.left + ", " + rect.top;
+					document.getElementById("pos1").innerHTML = rect.x + ", " + rect.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
