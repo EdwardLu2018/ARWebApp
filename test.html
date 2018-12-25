@@ -11,9 +11,9 @@
 	<script src="ARToolKit.js/src/threex/threex-artoolkitcontext.js"></script>
 	<script src="ARToolKit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="ARToolKit.js/src/threex/threex-armarkercontrols.js"></script>
-	<script>THREEx.ArToolkitContext.baseURL = '../'</script>
+	<!-- <script>THREEx.ArToolkitContext.baseURL = '../'</script> -->
 
-	<title>AR test</title>
+	<title>AR test 1</title>
 </head>
 
 <body style='margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;'>
@@ -115,7 +115,7 @@
 			scene.add(markerRoot1)
 			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 				type : 'pattern',
-				patternUrl : THREEx.ArToolkitContext.baseURL + 'data/data/patt.hiro',
+				patternUrl : 'data/data/patt.hiro'
 				// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
 			})
 
@@ -135,7 +135,7 @@
 			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
 				type : 'pattern',
 				// patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
-				patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
+				patternUrl : 'data/data/patt.kanji'
 			})
 
 			// add a gizmo in the center of the marker
