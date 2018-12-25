@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker]</p>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -175,13 +175,10 @@
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
-		    var widthHalf = 0.5*renderer.context.canvas.width;
-		    var heightHalf = 0.5*renderer.context.canvas.height;
-
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
-		    
+
 		    return { x: vector.x, y: vector.y };
 
 		};
@@ -210,14 +207,14 @@
 		}
 
 		function onMouseMove(event){
-			mouse.x = event.clientX
-			mouse.y = event.clientY
+			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
-			mouse.x = event.touches[0].clientX
-			mouse.y = event.touches[0].clientY
+			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
+			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
