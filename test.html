@@ -35,7 +35,7 @@
 		var markerRoots = [];
 
 		var clickedMarker = null;
-		var oneMarkerSelected = false, bothMarkersSelected = false;
+		var bothMarkersSelected = false;
 
 		// array of all functions that update the view
 		var updateFuncs = [];
@@ -222,7 +222,6 @@
 				var markerProj = toScreenPosition(markerRoots[i], camera);
 				if (isCloseToMouse(markerProj)){
 					clickedMarker = markerRoots[i];
-					oneMarkerSelected = true;
 				}
 			}
 			document.getElementById("pos").innerHTML = clickedMarker;
@@ -273,7 +272,7 @@
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
 
-			if (oneMarkerSelected && !bothMarkersSelected){
+			if (clickedMarker != null; && !bothMarkersSelected){
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(markerProj.x, markerProj.y, 0, 
 						 mouse.x, mouse.y, 0);
