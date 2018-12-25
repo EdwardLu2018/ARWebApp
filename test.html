@@ -162,7 +162,7 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					document.getElementById("pos").innerHTML = sprite[0].getWorldPosition().x + ", " + sprite[0].getWorldPosition().y;
+					document.getElementById("pos").innerHTML = sprite.getWorldPosition().x + ", " + sprite.getWorldPosition().y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
