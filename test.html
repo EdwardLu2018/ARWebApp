@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker1]</p>
+		<p id="pos">[position of marker]</p>
 	</div>
 
 	<script>
@@ -181,9 +181,6 @@
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
-
-		    vector.x = ( vector.x * widthHalf ) + widthHalf;
-		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
 
 		    return { x: vector.x, y: vector.y };
 
