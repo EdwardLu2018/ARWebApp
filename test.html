@@ -22,7 +22,7 @@
 	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
-		<p id="pos"></p>
+		<p id="pos">no marker selected</p>
 	</div>
 
 	<script>
@@ -223,7 +223,6 @@
 					clickedMarker = markerRoots[i];
 				}
 			}
-			document.getElementById("pos").innerHTML = "marker selected";
 		}
 
 		function onTouchStart(event){
@@ -270,6 +269,7 @@
 			updateFuncs.forEach(function(func){ func(); });
 
 			if (clickedMarker != null && !bothMarkersSelected){
+				document.getElementById("pos").innerHTML = "one marker selected";
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, mouse.z);
@@ -278,6 +278,9 @@
 				document.getElementById("pos").innerHTML = "both markers selected";
 				updateLineMesh();
 				displayMeasurement();
+			}
+			else{
+				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
 			render();
