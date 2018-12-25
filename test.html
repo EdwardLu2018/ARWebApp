@@ -24,7 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p>
 		<br/>
-		<p id="pos">[position of marker]</p>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -182,7 +182,7 @@
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
-		    return { x: vector.x, y: vector.y };
+		    return { x: vector.x * 2, y: vector.y };
 
 		};
 
@@ -216,12 +216,8 @@
 		}
 
 		function onTouchMove(event){
-			var widthHalf = 0.5*renderer.context.canvas.width;
-		    var heightHalf = 0.5*renderer.context.canvas.height;
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
-			mouse.x = ( mouse.x * widthHalf ) + widthHalf;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
-			mouse.y = - ( mouse.x * heightHalf ) + heightHalf;
 			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
