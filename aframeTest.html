@@ -18,7 +18,7 @@
   </script>
 
   <body id="container" style="margin: 0px; overflow: hidden; font-family: Monospace;">
-    <title>test</title>
+    <title>test1</title>
 
     <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui='enabled: false' >
       <a-marker id="hiro" preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
@@ -29,7 +29,7 @@
         </a-entity>
       </a-marker>
 
-      <a-marker markerhandler id="kanji" preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.kanji' registerevents>
+      <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="kanji" preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.kanji' registerevents>
         <a-text value="Now Interactable" geometry="primitive:plane"></a-text>
       </a-marker>
 
