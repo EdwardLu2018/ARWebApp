@@ -113,7 +113,7 @@
 
 			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
 			var geometry = new THREE.Geometry();
-			geometry.vertices.push(new THREE.Vector2(0, 0));
+			geometry.vertices.push(new THREE.Vector2(5, 0));
 			geometry.vertices.push(new THREE.Vector2(0, 0));
 			lineThing = new THREE.Line(geometry, material);
 			scene.add( lineThing )
@@ -291,8 +291,6 @@
 			else{
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
-
-
 
 			render();
 		}
