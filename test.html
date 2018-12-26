@@ -29,7 +29,7 @@
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
-		var input, texture1, sprite1;
+		var input, texture1, sprite1, input1;
 
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
@@ -173,6 +173,10 @@
 			input.fillStyle = "#fff";
 			input.fillText("text", input.width/4, 3*input.height/4 )
 			sprite1.material.map.needsUpdate = true
+
+			input1 = new CanvasInput({
+				canvas: document.getElementById('input')
+			});
 		});
 
 		updateFuncs.push(function updateScanner(){
@@ -203,10 +207,12 @@
 
 		function onMouseDown(event){
 			onMouseMove(event);
+			alert(input1);
 		}
 
 		function onTouchStart(event){
 			onTouchMove(event);
+			alert(input1);
 		}
 
 		function onMouseMove(event){
