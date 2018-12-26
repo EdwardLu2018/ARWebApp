@@ -11,12 +11,13 @@
         });
         marker.addEventListener('markerLost', function() {
           document.querySelector(".scanningSpinner").style.display = ""
+          document.querySelector(".scanningSpinner").style.top = "10px";
         });
       }
     });
   </script>
   <body style="margin: 0px; overflow: hidden; font-family: Monospace;">
-    <title>test1</title>
+    <title>test</title>
     <!-- Scanning animation when the marker are not visible -->
     <div class="scanningSpinner">
       <label>
