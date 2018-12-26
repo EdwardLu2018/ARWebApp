@@ -243,6 +243,7 @@
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 			document.getElementById("mpos").innerHTML = mouse.x + ", " + mouse.y;
+			document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 		}
 
 		function onMouseUp(){
@@ -277,7 +278,6 @@
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, mouse.z);
-				document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
