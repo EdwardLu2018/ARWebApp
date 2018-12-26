@@ -87,7 +87,7 @@
     }
     </style>
 
-    <a-scene embedded arjs vr-mode-ui='enabled: false'>
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180' vr-mode-ui='enabled: false'>
       <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
         <a-entity 
             obj-model='obj: url(https://edwardlu2018.github.io/ARWebApp/pinappleModel/model.obj); 
