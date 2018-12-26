@@ -174,7 +174,7 @@
 		function drawLine(x1,y1, x2,y2){
 			var newGeometry = lineThing.geometry;
 			newGeometry.vertices[0].copy( new THREE.Vector2(x1, y1) );
-			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2) );
+			newGeometry.vertices[1].copy( new THREE.Vector2(x2, y2) );
 			newGeometry.verticesNeedUpdate = true;
 		}
 
