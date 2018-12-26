@@ -22,8 +22,6 @@
 	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
-		<p id="mpos">mouse</p><br/>
-		<p id="mapos">mouse</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -132,6 +130,13 @@
 			window.addEventListener("touchmove", onTouchMove)
 			window.addEventListener("mouseup", onMouseUp)
 			window.addEventListener("touchend", onTouchEnd)
+			window.addEventListener("deviceorientation", changeOrientation)
+		}
+
+		function changeOrientation(){
+			renderer.setSize( 480,640 );
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
 		}
 
 		function updateLineMesh(){
@@ -175,8 +180,6 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					var markerProj = toScreenPosition(markerRoots[0], camera);
-					document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -238,13 +241,11 @@
 		function onMouseMove(event){
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			document.getElementById("mpos").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
-			document.getElementById("mpos").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onMouseUp(){
