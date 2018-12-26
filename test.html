@@ -113,10 +113,10 @@
 
 			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
 			var geometry = new THREE.Geometry();
-			geometry.vertices.push(new THREE.Vector2(5, 0));
-			geometry.vertices.push(new THREE.Vector2(0, 0));
+			geometry.vertices.push(new THREE.Vector3(5, 0, 0));
+			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
 			lineThing = new THREE.Line(geometry, material);
-			scene.add( lineThing )
+			measurementContainer.add( lineThing )
 
 			// build texture
 			canvas = document.createElement( "canvas" );
@@ -173,8 +173,8 @@
 
 		function drawLine(x1,y1, x2,y2){
 			var newGeometry = lineThing.geometry;
-			newGeometry.vertices[0].copy( new THREE.Vector2(x1, y1) );
-			newGeometry.vertices[1].copy( new THREE.Vector2(x2, y2) );
+			newGeometry.vertices[0].copy( new THREE.Vector3(x1, y1, 0) );
+			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2, 0) );
 			newGeometry.verticesNeedUpdate = true;
 		}
 
@@ -218,7 +218,7 @@
 		}
 
 		function isClose(pos1, pos2){
-			return Math.abs(pos1 - pos2) <= 0.1;
+			return Math.abs(pos1 - pos2) <= 0.05;
 		}
 
 		function isCloseToMouse(a){
@@ -256,6 +256,9 @@
 				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerProj)){
 					bothMarkersSelected = true;
 				}
+				else {
+					drawLine(0,0,0,0)
+				}
 			}
 			clickedMarker = null;
 		}
@@ -289,7 +292,7 @@
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
-			drawLine(0,0, 1, 3);
+			drawLine(0,0,mouse.x, mouse.y)
 
 			render();
 		}
