@@ -89,7 +89,7 @@
 				input = document.createElement("canvas");
 				input.width = 128; 
 				input.height = 64;
-				input = canvas.getContext( "2d" );
+				input = input.getContext( "2d" );
 				texture1 = new THREE.CanvasTexture( input );
 				// build sprite
 				var material = new THREE.SpriteMaterial( {map: texture1, color: 0xffffff});
