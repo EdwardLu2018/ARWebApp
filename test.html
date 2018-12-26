@@ -218,7 +218,7 @@
 		}
 
 		function isClose(pos1, pos2){
-			return Math.abs(pos1 - pos2) <= 0.05;
+			return Math.abs(pos1 - pos2) <= 0.1;
 		}
 
 		function isCloseToMouse(a){
@@ -256,9 +256,6 @@
 				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerProj)){
 					bothMarkersSelected = true;
 				}
-				else {
-					drawLine(0,0,0,0);
-				}
 			}
 			clickedMarker = null;
 		}
@@ -292,7 +289,7 @@
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
-			drawLine(0,0,mouse.x, mouse.y);
+			drawLine(0,0, 1, 3);
 
 			render();
 		}
