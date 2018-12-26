@@ -24,7 +24,6 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="mpos">mouse</p><br/>
 		<p id="mapos">mouse</p><br/>
-		<p id="or">orientation</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -40,8 +39,6 @@
 
 		// array of all functions that update the view
 		var updateFuncs = [];
-
-		var orientation = "portrait";
 
 		var mouse = new THREE.Vector3();
 		mouse.z = 0;
@@ -135,7 +132,6 @@
 			window.addEventListener("touchmove", onTouchMove)
 			window.addEventListener("mouseup", onMouseUp)
 			window.addEventListener("touchend", onTouchEnd)
-			window.addEventListener("deviceorientation", handleOrientation)
 		}
 
 		function updateLineMesh(){
@@ -192,7 +188,7 @@
 		    var vector = new THREE.Vector3();
 
 		    var mirror = 1;
-		    if (orientation == "landscape")
+		    if (Math.abs(window.orientation) === 90)
 		    	mirror = -1;
 
 		    var widthHalf = 0.5 * renderer.context.canvas.width;
@@ -211,16 +207,6 @@
 				arToolkitContext.update( arToolkitSource.domElement );
 			}
 		});
-
-		function handleOrientation(){
-			if (Math.abs(window.orientation) === 90) {
-		        orientation = "landscape"
-		    } 
-		    else {
-		    	orientation = "portrait"
-		    }
-		    document.getElementById("or").innerHTML = orientation;
-		}
 
 		function onResize(){
 			arToolkitSource.onResizeElement()
