@@ -194,14 +194,14 @@
 		    if (orientation == "landscape")
 		    	mirror = -1;
 
-		    var widthHalf = mirror * 0.5 * renderer.context.canvas.width;
+		    var widthHalf = 0.5 * renderer.context.canvas.width;
 		    var heightHalf = 0.5 * renderer.context.canvas.height;
 
 		    obj.updateMatrixWorld();
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
-		    return { x: vector.x * 2, y: vector.y };
+		    return { x: mirror * vector.x * 2, y: vector.y };
 		};
 
 		updateFuncs.push(function updateARtoolkit(){
