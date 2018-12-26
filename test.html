@@ -22,6 +22,7 @@
 	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
+		<p id="mpos">mouse</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -239,6 +240,7 @@
 		function onTouchMove(event){
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
+			document.getElementById("pos1").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onMouseUp(){
@@ -273,6 +275,7 @@
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, mouse.z);
+				document.getElementById("pos1").innerHTML = markerProj.x + ", " + markerProj.y;
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
@@ -283,7 +286,7 @@
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
-			
+
 
 			render();
 		}
