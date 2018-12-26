@@ -257,7 +257,7 @@
 					bothMarkersSelected = true;
 				}
 				else {
-					drawLine(0,0,0,0)
+					drawLine(0,0,0,0);
 				}
 			}
 			clickedMarker = null;
@@ -291,6 +291,8 @@
 			else{
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
+
+			drawLine(0,0,mouse.x, mouse.y);
 
 			render();
 		}
