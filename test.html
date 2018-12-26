@@ -24,7 +24,6 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="mpos">mouse</p><br/>
 		<p id="mapos">mouse</p><br/>
-		<p id="or">orientation</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -133,6 +132,13 @@
 			window.addEventListener("touchmove", onTouchMove)
 			window.addEventListener("mouseup", onMouseUp)
 			window.addEventListener("touchend", onTouchEnd)
+			window.addEventListener("deviceorientation", changeOrientation)
+		}
+
+		function changeOrientation(){
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
 		}
 
 		function updateLineMesh(){
@@ -289,9 +295,6 @@
 			else{
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
-
-			document.getElementById("or").innerHTML = Math.abs(window.orientation);
-
 			render();
 		}
 
