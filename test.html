@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distances</title>
+	<title>Measure Distance</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -251,6 +251,7 @@
 					drawLine(0,0,0,0,0,0)
 				}
 			}
+			
 			clickedMarker = null;
 		}
 
@@ -277,14 +278,10 @@
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
-				markerRoots[0].mesh.scale.set( 0.2, 0 );
-				markerRoots[1].mesh.scale.set( 0.2, 0 );
 				updateLineMesh();
 				displayMeasurement();
 			}
 			else{
-				markerRoots[0].mesh.scale.set( 0.1, 0 );
-				markerRoots[1].mesh.scale.set( 0.1, 0 );
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
