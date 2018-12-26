@@ -21,7 +21,7 @@
         <a-entity line="start: 0, 0, 0; end: 1 1 1; color: red"></a-entity>
       </a-marker>
 
-      <a-entity line="start: 0, 0, 0; end: 1 1 1; color: red"></a-entity>
+      <a-entity id="line" line="start: 0, 0, 0; end: 1 1 1; color: red"></a-entity>
 
       <a-entity camera></a-entity>
     </a-scene>
@@ -30,11 +30,10 @@
       var sceneEl = document.querySelector('a-scene');
       var hiro = document.getElementById('marker-hiro');
       var kanji = document.getElementById('marker-kanji');
-      var line = sceneEl.getObject3D('line');
+      var line = document.getElementById('line');
       var pineapple = document.getElementById('pineapple');
       var box = document.getElementById('box');
-      //var line = sceneEl.querySelector('line');
-      line.start = hiro.getWorldPosition();
+      line.start = box.getWorldPosition();
     </script>
   </body>
 </html> 
