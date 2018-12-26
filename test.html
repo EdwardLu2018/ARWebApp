@@ -22,8 +22,9 @@
 	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
-		<p id="pos">no marker selected</p>
-		<br/><p id="can">c</p>
+		<p id="text">[mouse position]</p>
+		<br/>
+		<p id="pos">[position of marker1]</p>
 	</div>
 
 	<script>
@@ -33,14 +34,10 @@
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
 
-		var clickedMarker = null;
-		var bothMarkersSelected = false;
-
 		// array of all functions that update the view
 		var updateFuncs = [];
 
-		var mouse = new THREE.Vector3();
-		mouse.z = 0;
+		var mouse = new THREE.Vector2();
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
@@ -105,8 +102,8 @@
 			// build linemesh
 			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
 			var geometry = new THREE.Geometry();
-			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
+			geometry.vertices.push(new THREE.Vector3(1, 0, -3));
+			geometry.vertices.push(new THREE.Vector3(-1, 0, -3));
 			lineMesh = new THREE.Line(geometry, material);
 			measurementContainer.add( lineMesh )
 
@@ -129,11 +126,9 @@
 			window.addEventListener("touchstart", onTouchStart)
 			window.addEventListener("mousemove", onMouseMove)
 			window.addEventListener("touchmove", onTouchMove)
-			window.addEventListener("mouseup", onMouseUp)
-			window.addEventListener("touchend", onTouchEnd)
 		}
 
-		function updateLineMesh(){
+		updateFuncs.push(function updateLineMesh(){
 			var geometry = lineMesh.geometry
 			geometry.vertices[0].copy(markerRoots[0].position)
 			geometry.vertices[1].copy(markerRoots[1].position)
@@ -145,9 +140,9 @@
 			var length = markerRoots[0].position.distanceTo(markerRoots[1].position)
 			lineMesh.material.scale = length * 10
 			lineMesh.material.needsUpdate = true
-		}
+		});
 
-		function displayMeasurement(){
+		updateFuncs.push(function displayMeasurement(){
 			// update sprite position
 			sprite.position.addVectors(markerRoots[0].position, markerRoots[1].position).multiplyScalar(1/2)
 
@@ -161,38 +156,19 @@
 			context.fillStyle = "#fff";
 			context.fillText(text, canvas.width/4, 3*canvas.height/4 )
 			sprite.material.map.needsUpdate = true
-		}
-
-		function drawLine(x1,y1,z1, x2,y2,z2){
-			var newGeometry = lineMesh.geometry;
-			newGeometry.vertices[0].copy( new THREE.Vector3(x1, y1, z1) );
-			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2, z2) );
-			newGeometry.verticesNeedUpdate = true;
-		}
+		});
 
 		updateFuncs.push(function updateScanner(){
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+					document.getElementById("pos").innerHTML = sprite.getWorldPosition().x + ", " + sprite.getWorldPosition().y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
 				}
 			}
 		});
-
-		function toScreenPosition(obj, camera){
-		    var vector = new THREE.Vector3();
-
-		    var widthHalf = 0.5*renderer.context.canvas.width;
-		    var heightHalf = 0.5*renderer.context.canvas.height;
-
-		    obj.updateMatrixWorld();
-		    vector.setFromMatrixPosition(obj.matrixWorld);
-		    vector.project(camera);
-
-		    return { x: vector.x * 2, y: vector.y };
-		};
 
 		updateFuncs.push(function updateARtoolkit(){
 			// update artoolkit on every frame
@@ -209,54 +185,24 @@
 			}
 		}
 
-		function isClose(pos1, pos2){
-			return Math.abs(pos1 - pos2) <= 0.05;
-		}
-
-		function isCloseToMouse(a){
-			return isClose(mouse.x, a.x) && isClose(mouse.y, a.y);
-		}
-
-		function onMouseDown(){
-			for (var i = 0; i < markerRoots.length; i++){
-				var markerProj = toScreenPosition(markerRoots[i], camera);
-				if (isCloseToMouse(markerProj)){
-					clickedMarker = markerRoots[i];
-				}
-			}
+		function onMouseDown(event){
+			onMouseMove(event);
 		}
 
 		function onTouchStart(event){
-			event.preventDefault();
 			onTouchMove(event);
-			onMouseDown();
 		}
 
 		function onMouseMove(event){
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
 			mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
-		}
-
-		function onMouseUp(){
-			for (var i = 0; i < markerRoots.length; i++){
-				var markerProj = toScreenPosition(markerRoots[i], camera);
-				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerProj)){
-					bothMarkersSelected = true;
-				}
-				else {
-					drawLine(0,0,0,0,0,0)
-				}
-			}
-			clickedMarker = null;
-		}
-
-		function onTouchEnd(){
-			onMouseUp();
+			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function render(){
@@ -268,23 +214,6 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
-
-			if (clickedMarker != null && !bothMarkersSelected){
-				document.getElementById("pos").innerHTML = "one marker selected";
-				var markerProj = toScreenPosition(clickedMarker, camera);
-				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
-						 mouse.x, mouse.y, mouse.z);
-			}
-			else if (bothMarkersSelected){
-				document.getElementById("pos").innerHTML = "both markers selected";
-				updateLineMesh();
-				displayMeasurement();
-			}
-			else{
-				document.getElementById("pos").innerHTML = "no marker selected";
-			}
-			var rect = canvas.getBoundingClientRect();
-			document.getElementById("can").innerHTML = rect.x;
 
 			render();
 		}
