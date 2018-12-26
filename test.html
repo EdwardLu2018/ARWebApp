@@ -23,6 +23,7 @@
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="pos">no marker selected</p>
+		<br/><p id="can">c</p>
 	</div>
 
 	<script>
@@ -282,6 +283,8 @@
 			else{
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
+			var rect = canvas.getBoundingClientRect();
+			document.getElementById("can").innerHTML = rect.x;
 
 			render();
 		}
