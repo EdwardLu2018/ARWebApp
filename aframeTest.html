@@ -8,30 +8,20 @@
   <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
     <title>test</title>
 
-    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180; debugUIEnabled: false;' vr-mode-ui='enabled: false'>
-      <a-marker id='marker-hiro' preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro'>
-        <a-entity id="pineapple"
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180 debugUIEnabled: false' vr-mode-ui='enabled: false'>
+      <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
+        <a-entity 
             obj-model='obj: url(https://edwardlu2018.github.io/ARWebApp/pinappleModel/model.obj); 
             mtl: url(https://edwardlu2018.github.io/ARWebApp/pinappleModel/materials.mtl)'
             scale="2 2 2" rotation="45 -135 0" position="0 0.5 0">
         </a-entity>
       </a-marker>
 
-      <a-marker id='marker-kanji' preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.kanji'>
-        <a-entity line="start: 0, 0, 0; end: 1 1 1; color: red"></a-entity>
+      <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.kanji' registerevents>
+        <a-entity geometry="primitive: box; width: 1; height: 1; depth: 1"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-      var sceneEl = document.querySelector('a-scene');
-      var hiro = document.getElementById('marker-hiro');
-      var kanji = document.getElementById('marker-kanji');
-      var line = document.getElementById('line');
-      var pineapple = document.getElementById('pineapple');
-      var box = document.getElementById('box');
-      line.start.x = -1;
-    </script>
   </body>
 </html> 
