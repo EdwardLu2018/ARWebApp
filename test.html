@@ -24,6 +24,7 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="mpos">mouse</p><br/>
 		<p id="mapos">mouse</p><br/>
+		<p id="or">orientation</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -218,6 +219,7 @@
 		    else {
 		    	orientation = "portrait"
 		    }
+		    document.getElementById("or").innerHTML = orientation;
 		}
 
 		function onResize(){
