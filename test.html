@@ -13,7 +13,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
-	<title>Measure Distances</title>
+	<title>Measure Distance</title>
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
@@ -43,8 +43,6 @@
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
-
-		var lineThing;
 
 		init();
 		animate();
@@ -111,13 +109,6 @@
 			lineMesh = new THREE.Line(geometry, material);
 			measurementContainer.add( lineMesh )
 
-			var material = new THREE.LineDashedMaterial( {dashSize: 1, gapSize: 1} );
-			var geometry = new THREE.Geometry();
-			geometry.vertices.push(new THREE.Vector3(5, 0, 0));
-			geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-			lineThing = new THREE.Line(geometry, material);
-			measurementContainer.add( lineThing )
-
 			// build texture
 			canvas = document.createElement( "canvas" );
 			canvas.width = 128; 
@@ -171,10 +162,10 @@
 			sprite.material.map.needsUpdate = true
 		}
 
-		function drawLine(x1,y1, x2,y2){
-			var newGeometry = lineThing.geometry;
-			newGeometry.vertices[0].copy( new THREE.Vector3(x1, y1, 0) );
-			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2, 0) );
+		function drawLine(x1,y1,z1, x2,y2,z2){
+			var newGeometry = lineMesh.geometry;
+			newGeometry.vertices[0].copy( new THREE.Vector3(x1, y1, z1) );
+			newGeometry.vertices[1].copy( new THREE.Vector3(x2, y2, z2) );
 			newGeometry.verticesNeedUpdate = true;
 		}
 
@@ -257,7 +248,7 @@
 					bothMarkersSelected = true;
 				}
 				else {
-					drawLine(0,0,0,0)
+					drawLine(0,0,0,0,0,0)
 				}
 			}
 			clickedMarker = null;
@@ -280,8 +271,8 @@
 			if (clickedMarker != null && !bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "one marker selected";
 				var markerProj = toScreenPosition(clickedMarker, camera);
-				drawLine(markerProj.x, markerProj.y,
-						 mouse.x, mouse.y);
+				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
+						 mouse.x, mouse.y, mouse.z);
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
@@ -292,7 +283,7 @@
 				document.getElementById("pos").innerHTML = "no marker selected";
 			}
 
-			drawLine(0,0,mouse.x, mouse.y)
+			
 
 			render();
 		}
