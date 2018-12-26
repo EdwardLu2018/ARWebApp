@@ -37,6 +37,8 @@
       text-align: center;
       position: fixed;
       width:100%;
+      top: 10px;
+      z-index: 1;
     }
 
     .scanningSpinner label {
@@ -82,7 +84,7 @@
     }
     </style>
 
-   <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+    <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui='enabled: false' >
       <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
         <a-entity 
             obj-model='obj: url(https://edwardlu2018.github.io/ARWebApp/pinappleModel/model.obj); 
