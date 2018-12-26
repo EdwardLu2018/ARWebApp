@@ -29,8 +29,6 @@
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
-		var input, texture1, sprite1, context1, input1;
-
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
 
@@ -86,16 +84,11 @@
 					patternUrl: "AR-Toolkit.js/data/data/patt." + markers[i]
 				})
 
-				input = document.createElement("canvas");
-				input.width = 128; 
-				input.height = 64;
-				context1 = input.getContext( "2d" );
-				texture1 = new THREE.CanvasTexture( input );
-				// build sprite
-				var material = new THREE.SpriteMaterial( {map: texture1, color: 0xffffff});
-				sprite1 = new THREE.Sprite( material );
-				sprite1.scale.multiplyScalar(0.5)
-				markerRoot.add( sprite1 )
+				// add a gizmo in the center of the marker1
+				var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
+				var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
+				var mesh = new THREE.Mesh( geometry, material );
+				markerRoot.add( mesh );
 
 				markerRoots.push(markerRoot);
 			}
@@ -163,22 +156,6 @@
 			sprite.material.map.needsUpdate = true
 		});
 
-		updateFuncs.push(function(){
-			// update sprite position
-			sprite1.position = markerRoots[0].getWorldPosition();
-			
-			// put the text in the sprite
-			context1.font = "40px monospace";
-			context1.clearRect( 0, 0, input.width, input.height );
-			context1.fillStyle = "#fff";
-			context1.fillText("text", input.width/4, 3*input.height/4 )
-			sprite1.material.map.needsUpdate = true
-
-			input1 = new CanvasInput({
-				canvas: document.getElementById('input')
-			});
-		});
-
 		updateFuncs.push(function updateScanner(){
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
@@ -207,12 +184,10 @@
 
 		function onMouseDown(event){
 			onMouseMove(event);
-			alert(input1);
 		}
 
 		function onTouchStart(event){
 			onTouchMove(event);
-			alert(input1);
 		}
 
 		function onMouseMove(event){
