@@ -29,7 +29,7 @@
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
-		var input, texture1, sprite1, input1;
+		var input, texture1, sprite1, context1, input1;
 
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
@@ -89,7 +89,7 @@
 				input = document.createElement("canvas");
 				input.width = 128; 
 				input.height = 64;
-				input = input.getContext( "2d" );
+				context1 = input.getContext( "2d" );
 				texture1 = new THREE.CanvasTexture( input );
 				// build sprite
 				var material = new THREE.SpriteMaterial( {map: texture1, color: 0xffffff});
@@ -168,10 +168,10 @@
 			sprite1.position = markerRoots[0].getWorldPosition();
 			
 			// put the text in the sprite
-			input.font = "40px monospace";
-			input.clearRect( 0, 0, input.width, input.height );
-			input.fillStyle = "#fff";
-			input.fillText("text", input.width/4, 3*input.height/4 )
+			context1.font = "40px monospace";
+			context1.clearRect( 0, 0, input.width, input.height );
+			context1.fillStyle = "#fff";
+			context1.fillText("text", input.width/4, 3*input.height/4 )
 			sprite1.material.map.needsUpdate = true
 
 			input1 = new CanvasInput({
