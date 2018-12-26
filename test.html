@@ -86,7 +86,10 @@
 					patternUrl: "AR-Toolkit.js/data/data/patt." + markers[i]
 				})
 
-				input = document.createElement("input");
+				input = document.createElement("canvas");
+				input.width = 128; 
+				input.height = 64;
+				input = canvas.getContext( "2d" );
 				texture1 = new THREE.CanvasTexture( input );
 				// build sprite
 				var material = new THREE.SpriteMaterial( {map: texture1, color: 0xffffff});
@@ -158,6 +161,18 @@
 			context.fillStyle = "#fff";
 			context.fillText(text, canvas.width/4, 3*canvas.height/4 )
 			sprite.material.map.needsUpdate = true
+		});
+
+		updateFuncs.push(function(){
+			// update sprite position
+			sprite1.position = markerRoots[0].getWorldPosition();
+			
+			// put the text in the sprite
+			input.font = "40px monospace";
+			input.clearRect( 0, 0, input.width, input.height );
+			input.fillStyle = "#fff";
+			input.fillText("text", input.width/4, 3*input.height/4 )
+			sprite1.material.map.needsUpdate = true
 		});
 
 		updateFuncs.push(function updateScanner(){
