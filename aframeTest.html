@@ -7,15 +7,19 @@
       init: function () {
         var marker = this.el;
         marker.addEventListener('markerFound', function() {
+          var markerId = marker.id;
+          console.log('markerFound', markerId);
           document.querySelector(".scanningSpinner").style.display = "none"
         });
         marker.addEventListener('markerLost', function() {
+          var markerId = marker.id;
+          console.log('markerLost', markerId);
           document.querySelector(".scanningSpinner").style.display = ""
         });
       }
     });
   </script>
-  <body style="margin: 0px; overflow: hidden; font-family: Monospace; width: 100%; height: 100%">
+  <body style="margin: 0px; overflow: hidden; font-family: Monospace;">
     <title>test</title>
     <!-- Scanning animation when the marker are not visible -->
     <div class="scanningSpinner">
@@ -33,8 +37,6 @@
       text-align: center;
       position: fixed;
       width:100%;
-      top: 10px;
-      z-index: 1;
     }
 
     .scanningSpinner label {
