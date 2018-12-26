@@ -29,6 +29,8 @@
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
+		var input, texture1, sprite1;
+
 		var markers = ["hiro", "kanji"];
 		var markerRoots = [];
 
@@ -84,11 +86,13 @@
 					patternUrl: "AR-Toolkit.js/data/data/patt." + markers[i]
 				})
 
-				// add a gizmo in the center of the marker1
-				var geometry = new THREE.OctahedronGeometry( 0.1, 0 )
-				var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
-				var mesh = new THREE.Mesh( geometry, material );
-				markerRoot.add( mesh );
+				input = document.createElement("input");
+				texture1 = new THREE.CanvasTexture( input );
+				// build sprite
+				var material = new THREE.SpriteMaterial( {map: texture1, color: 0xffffff});
+				sprite1 = new THREE.Sprite( material );
+				sprite1.scale.multiplyScalar(0.5)
+				markerRoot.add( sprite1 )
 
 				markerRoots.push(markerRoot);
 			}
