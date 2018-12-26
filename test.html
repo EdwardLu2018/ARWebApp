@@ -188,9 +188,6 @@
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
-		    var mirror = 1;
-		    if (Math.abs(window.orientation) === 90)
-		    	mirror = -1;
 
 		    var widthHalf = 0.5 * renderer.context.canvas.width;
 		    var heightHalf = 0.5 * renderer.context.canvas.height;
