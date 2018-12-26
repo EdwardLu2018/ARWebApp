@@ -5,6 +5,15 @@
 
   <style>
     #container { display:block; }
+    @media only screen and (orientation:portrait){
+    #container {
+      height: 100vw;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
     @media only screen and (orientation:landscape){
       #container {
          -webkit-transform: rotate(0deg);
@@ -17,7 +26,7 @@
   </style>
 
   <body id="container" style="margin: 0px; overflow: hidden; font-family: Monospace;">
-    <title>test1</title>
+    <title>test</title>
 
     <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui='enabled: false' >
       <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
