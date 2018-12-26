@@ -175,6 +175,8 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+					var markerProj = toScreenPosition(markerRoots[0], camera);
+					document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -250,8 +252,6 @@
 				var markerProj = toScreenPosition(markerRoots[i], camera);
 				if (clickedMarker != null && clickedMarker != markerRoots[i] && isCloseToMouse(markerProj)){
 					bothMarkersSelected = true;
-					var markerProj = toScreenPosition(markerRoots[0], camera);
-					document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 				}
 				else {
 					drawLine(0,0,0,0,0,0)
