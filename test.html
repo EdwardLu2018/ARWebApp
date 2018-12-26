@@ -23,6 +23,7 @@
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="mpos">mouse</p><br/>
+		<p id="mapos">mouse</p><br/>
 		<p id="pos">no marker selected</p>
 	</div>
 
@@ -276,7 +277,7 @@
 				var markerProj = toScreenPosition(clickedMarker, camera);
 				drawLine(clickedMarker.position.x, clickedMarker.position.y, clickedMarker.position.z, 
 						 mouse.x, mouse.y, mouse.z);
-				document.getElementById("mpos").innerHTML = markerProj.x + ", " + markerProj.y;
+				document.getElementById("mapos").innerHTML = markerProj.x + ", " + markerProj.y;
 			}
 			else if (bothMarkersSelected){
 				document.getElementById("pos").innerHTML = "both markers selected";
