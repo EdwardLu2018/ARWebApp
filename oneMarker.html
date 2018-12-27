@@ -193,6 +193,8 @@
 			updateFuncs.forEach(function(func){ func(); });
 
 			var proj = getCoordinates(sprite, camera);
+			ctx.fillStyle = "blue";
+			ctx.fillRect( 0, 0, main.width, main.height );
       ctx.left = proj.x + "px";
       ctx.top = proj.y + "px";
       ctx.border="10px solid #c3c3c3;"
