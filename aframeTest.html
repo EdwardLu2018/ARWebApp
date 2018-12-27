@@ -8,20 +8,30 @@
     AFRAME.registerComponent('registerevents', {
       init: function () {
         var marker = this.el;
-        var div = document.getElementById("hi");
         marker.addEventListener('markerFound', function() {
           var markerId = marker.id;
           console.log('markerFound', markerId);
           // TODO: Add your own code here to react to the marker being found.
           console.log(marker.object3D.position);
-          div.style.display = ""
+
+          var div = document.getElementById("hi");
+          div.style.width = "100px";
+          div.style.height = "100px";
+          div.style.margin = "100px auto";
+          div.style.textalign = "center";
+          div.style.background = "red";
+          div.style.color = "white";
+          div.innerHTML = "Hello";
+          window.setInterval(function(){
+            div.left = marker.object3D.position.x + "px";
+            div.top = marker.object3D.position.y + "px";
+          }, 500);
 
         });
         marker.addEventListener('markerLost', function() {
           var markerId = marker.id;
           console.log('markerLost', markerId);
           // TODO: Add your own code here to react to the marker being lost.
-          div.style.display = "none"
         });
       }
     });
@@ -29,7 +39,8 @@
 
   <body id="main" style='margin : 0px; overflow: hidden; font-family: Monospace;'>
     <title>test</title>
-    <div id = "hi" style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">no markers found</div>
+    <div id = "hi" style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
+    </div>
 
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' vr-mode-ui='enabled: false'>
