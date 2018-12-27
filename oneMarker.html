@@ -91,7 +91,7 @@
 			// build sprite
 			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
 			sprite = new THREE.Sprite( material );
-			//sprite.scale.multiplyScalar(0.5);
+			sprite.scale.multiplyScalar(0.5);
 			markerRoot1.add( sprite );
 
 			div = document.createElement("div");
@@ -115,7 +115,7 @@
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
 					var proj = getCoordinates(sprite, camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+					document.getElementById("mark").innerHTML = sprite.position;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
