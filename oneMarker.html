@@ -108,8 +108,8 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					var proj = getCoordinates(markerRoot1, camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+					var rect = canvas.getBoundingClientRect();
+					document.getElementById("mark").innerHTML = rect.left + ", " + rect.right;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
