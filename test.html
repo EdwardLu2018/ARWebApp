@@ -126,6 +126,26 @@
 			window.addEventListener("mousemove", onMouseMove)
 			window.addEventListener("touchmove", onTouchMove)
 		}
+		
+		updateFuncs.push(function updateARtoolkit(){
+			// update artoolkit on every frame
+			if (arToolkitSource.ready !== false){
+				arToolkitContext.update( arToolkitSource.domElement );
+			}
+		});
+
+		updateFuncs.push(function updateScanner(){
+			if (document.querySelector(".scanningSpinner") != null){
+				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
+					document.querySelector(".scanningSpinner").style.display = "none"
+					var proj = toScreenPosition(markerRoots[0], camera);
+					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+				}
+				else{
+					document.querySelector(".scanningSpinner").style.display = ""
+				}
+			}
+		});
 
 		updateFuncs.push(function updateLineMesh(){
 			var geometry = lineMesh.geometry
@@ -157,19 +177,6 @@
 			sprite.material.map.needsUpdate = true
 		});
 
-		updateFuncs.push(function updateScanner(){
-			if (document.querySelector(".scanningSpinner") != null){
-				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
-					document.querySelector(".scanningSpinner").style.display = "none"
-					var proj = toScreenPosition(markerRoots[0], camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
-				}
-				else{
-					document.querySelector(".scanningSpinner").style.display = ""
-				}
-			}
-		});
-
 		function toScreenPosition(obj, camera){
 		    var vector = new THREE.Vector3();
 
@@ -180,19 +187,15 @@
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
+		    vector.x = ( vector.x * widthHalf ) + widthHalf;
+		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+
 		    return { 
 		        x: vector.x,
 		        y: vector.y
 		    };
 
 		};
-
-		updateFuncs.push(function updateARtoolkit(){
-			// update artoolkit on every frame
-			if (arToolkitSource.ready !== false){
-				arToolkitContext.update( arToolkitSource.domElement );
-			}
-		});
 
 		function onResize(){
 			arToolkitSource.onResizeElement()
