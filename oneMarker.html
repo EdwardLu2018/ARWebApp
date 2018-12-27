@@ -92,8 +92,9 @@
 			texture = new THREE.CanvasTexture( canvas );
 
 			// build sprite
-			var material = new THREE.SpriteMaterial( {map: texture, color: 0xffffff});
+			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
 			sprite = new THREE.Sprite( material );
+			//sprite.scale.multiplyScalar(0.5);
 			markerRoot1.add( sprite );
 
 			// event handlers
@@ -122,7 +123,7 @@
 			sprite.position = markerRoot1.position
 			
 			// put the text in the sprite
-			context.font = "20px monospace";
+			context.font = "50px monospace";
 			context.clearRect( 0, 0, canvas.width, canvas.height );
 			context.fillStyle = "#333";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
