@@ -110,22 +110,18 @@
 			}
 		});
 
-		function toScreenPosition(obj, camera){
-		    var vector = new THREE.Vector3();
+		function getCoordinates( element, camera ) {
 
-		    var widthHalf = 0.5*renderer.context.canvas.width;
-		    var heightHalf = 0.5*renderer.context.canvas.height;
+		    var screenVector = new THREE.Vector3();
+		    element.localToWorld( screenVector );
 
-		    obj.updateMatrixWorld();
-		    vector.setFromMatrixPosition(obj.matrixWorld);
-		    vector.project(camera);
+		    screenVector.project( camera );
 
-		    return { 
-		        x: vector.x,
-		        y: vector.y
-		    };
+		    var posx = Math.round(( screenVector.x + 1 ) * renderer.domElement.offsetWidth / 2 );
+		    var posy = Math.round(( 1 - screenVector.y ) * renderer.domElement.offsetHeight / 2 );
 
-		};
+		    return {x: posx, y: posy };
+		}
 
 		updateFuncs.push(function updateARtoolkit(){
 			// update artoolkit on every frame
