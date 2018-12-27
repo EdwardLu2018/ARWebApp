@@ -130,7 +130,11 @@
 			context.fillStyle = "#333";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
 			input = new CanvasInput({
-			  canvas: document.getElementById('in')
+			  canvas: document.getElementById('in'),
+			  width: 300,
+			  fontSize: 50,
+			  fontFamily: 'Arial',
+				placeHolder: 'Enter message here...'
 			});
 			sprite.material.map.needsUpdate = true
 		});
