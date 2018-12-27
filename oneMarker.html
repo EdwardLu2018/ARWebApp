@@ -11,7 +11,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-artoolkitcontext.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
-	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
+	<script src="CanvasInput/CanvasInput.js"></script>
 
 	<title>testing</title>
 </head>
@@ -39,6 +39,7 @@
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
+		var input;
 
 		init();
 		animate();
@@ -85,10 +86,15 @@
 
 			// build texture
 			canvas = document.createElement( "canvas" );
+			canvas.setAttribute("id", "in");
 			canvas.width = 500; 
 			canvas.height = 500;
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
+
+			input = new CanvasInput({
+			  canvas: document.getElementById('in')
+			});
 
 			// build sprite
 			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000} );
