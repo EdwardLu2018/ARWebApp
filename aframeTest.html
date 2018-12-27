@@ -6,7 +6,7 @@
   </head>
 
   <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-    <title>aframe test</title>
+    <title>test1</title>
 
     <script>
       AFRAME.registerComponent('registerevents', {
@@ -20,7 +20,7 @@
           marker.addEventListener('markerLost', function() {
             var markerId = marker.id;
             console.log('markerLost', markerId);
-            document.querySelector(".scanningSpinner").style.display = "block"
+            document.querySelector(".scanningSpinner").style.display = ""
           });
         }
       });
@@ -40,10 +40,9 @@
       margin: 100px auto;
       height: 40px;
       text-align: center;
-      position: fixed;
+      position: absolute;
       width:100%;
       top: 10px;
-      z-index: 1;
     }
 
     .scanningSpinner label {
