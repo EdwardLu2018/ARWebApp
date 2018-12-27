@@ -180,9 +180,6 @@
 		    vector.setFromMatrixPosition(obj.matrixWorld);
 		    vector.project(camera);
 
-		    vector.x = ( vector.x * widthHalf ) + widthHalf;
-		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
-
 		    return { 
 		        x: vector.x,
 		        y: vector.y
