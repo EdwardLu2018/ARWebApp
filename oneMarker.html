@@ -11,7 +11,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-artoolkitcontext.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
-	<script src="CanvasInput/CanvasInput.js"></script>
+	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
 	<title>testing</title>
 </head>
@@ -39,7 +39,6 @@
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
-		var input;
 
 		init();
 		animate();
@@ -86,14 +85,13 @@
 
 			// build texture
 			canvas = document.createElement( "canvas" );
-			canvas.setAttribute("id", "in");
 			canvas.width = 500; 
 			canvas.height = 500;
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
 
 			// build sprite
-			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000} );
+			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
 			sprite = new THREE.Sprite( material );
 			//sprite.scale.multiplyScalar(0.5);
 			markerRoot1.add( sprite );
@@ -126,16 +124,8 @@
 			// put the text in the sprite
 			context.font = "50px monospace";
 			context.clearRect( 0, 0, canvas.width, canvas.height );
-			canvas.style.border = "10px solid #333333";
 			context.fillStyle = "#333";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
-			input = new CanvasInput({
-			  canvas: document.getElementById('in'),
-			  width: 300,
-			  fontSize: 50,
-			  fontFamily: 'Arial',
-				placeHolder: 'Enter message here...'
-			});
 			sprite.material.map.needsUpdate = true
 		});
 
