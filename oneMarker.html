@@ -83,11 +83,18 @@
 				patternUrl: "AR-Toolkit.js/data/data/patt.hiro"
 			})
 
-			// add a gizmo in the center of the marker1
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 )
-			var material = new THREE.MeshNormalMaterial( {wireframe: true} ); 
-			var mesh = new THREE.Mesh( geometry, material );
-			markerRoot1.add( mesh );
+			// build texture
+			canvas = document.createElement( "canvas" );
+			canvas.width = 128; 
+			canvas.height = 64;
+			context = canvas.getContext( "2d" );
+			texture = new THREE.CanvasTexture( canvas );
+
+			// build sprite
+			var material = new THREE.SpriteMaterial( {map: texture, color: 0xffffff});
+			sprite = new THREE.Sprite( material );
+			sprite.scale.multiplyScalar(0.5)
+			markerRoot1.add( sprite );
 
 			// event handlers
 			window.addEventListener("resize", onResize)
@@ -108,6 +115,18 @@
 					document.querySelector(".scanningSpinner").style.display = ""
 				}
 			}
+		});
+
+		updateFuncs.push(function(){
+			// update sprite position
+			sprite.position = markerRoot1.position
+			
+			// put the text in the sprite
+			context.font = "40px monospace";
+			context.clearRect( 0, 0, canvas.width, canvas.height );
+			context.fillStyle = "#fff";
+			context.fillText("hello world", canvas.width/4, 3*canvas.height/4 )
+			sprite.material.map.needsUpdate = true
 		});
 
 		function getCoordinates( element, camera ) {
