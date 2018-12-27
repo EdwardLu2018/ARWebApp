@@ -87,6 +87,7 @@
 			canvas = document.createElement( "canvas" );
 			canvas.width = 300; 
 			canvas.height = 300;
+			canvas.style.border = "1px solid";
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
 
@@ -124,7 +125,6 @@
 			// put the text in the sprite
 			context.font = "10px monospace";
 			context.clearRect( 0, 0, canvas.width, canvas.height );
-			context.style.border = "1px solid"
 			context.fillStyle = "#fff";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
 			sprite.material.map.needsUpdate = true
