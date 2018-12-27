@@ -17,7 +17,9 @@
 </head>
 
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
-	<canvas id="main"></canvas>
+	<style>
+		canvas { width: 100%; height: 100% }
+	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p><br/>
@@ -29,7 +31,6 @@
 		var arToolkitSource, arToolkitContext;
 
 		var markerRoot1;
-		var main, ctx;
 
 		// array of all functions that update the view
 		var updateFuncs = [];
@@ -88,11 +89,6 @@
 			canvas.height = 500;
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
-
-			main = document.getElementById("main");
-      ctx = main.getContext("2d");
-      main.width = 200;
-      main.height = 200;
 
 			// build sprite
 			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
@@ -191,14 +187,6 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
-
-			var proj = getCoordinates(sprite, camera);
-			ctx.fillStyle = "blue";
-			ctx.fillRect( 0, 0, main.width, main.height );
-      ctx.left = proj.x + "px";
-      ctx.top = proj.y + "px";
-      ctx.border="10px solid #c3c3c3;"
-      ctx.position = "absolute";
 
 			render();
 		}
