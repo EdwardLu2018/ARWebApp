@@ -22,7 +22,8 @@
 	</style>
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
-		<p id="text">[mouse position]</p>
+		<p id="text">[mouse position]</p><br/>
+		<p id="mark">[marker1 position]</p>
 	</div>
 
 	<script>
@@ -100,12 +101,31 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+					var proj = toScreenPosition(markerRoots[0], camera);
+					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
 				}
 			}
 		});
+
+		function toScreenPosition(obj, camera){
+		    var vector = new THREE.Vector3();
+
+		    var widthHalf = 0.5*renderer.context.canvas.width;
+		    var heightHalf = 0.5*renderer.context.canvas.height;
+
+		    obj.updateMatrixWorld();
+		    vector.setFromMatrixPosition(obj.matrixWorld);
+		    vector.project(camera);
+
+		    return { 
+		        x: vector.x,
+		        y: vector.y
+		    };
+
+		};
 
 		updateFuncs.push(function updateARtoolkit(){
 			// update artoolkit on every frame
