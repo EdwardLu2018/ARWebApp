@@ -100,6 +100,7 @@
 			div.style.background = "red";
 			div.style.color = "white";
 			div.innerHTML = "Hello";
+			document.getElementById("main").appendChild(div);
 
 			// event handlers
 			window.addEventListener("resize", onResize)
@@ -192,8 +193,6 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
-
-			document.getElementById("main").appendChild(div);
 
 			var proj = getCoordinates(sprite, camera);
 			div.style.left = proj.x + 'px';
