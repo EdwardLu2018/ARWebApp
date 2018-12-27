@@ -92,10 +92,6 @@
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
 
-			input = new CanvasInput({
-			  canvas: document.getElementById('in')
-			});
-
 			// build sprite
 			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000} );
 			sprite = new THREE.Sprite( material );
@@ -133,6 +129,9 @@
 			canvas.style.border = "10px solid #333333";
 			context.fillStyle = "#333";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
+			input = new CanvasInput({
+			  canvas: document.getElementById('in')
+			});
 			sprite.material.map.needsUpdate = true
 		});
 
