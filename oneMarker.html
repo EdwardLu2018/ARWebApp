@@ -16,10 +16,7 @@
 	<title>single marker test</title>
 </head>
 
-<body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
-	<style>
-		canvas { width: 100%; height: 100% }
-	</style>
+<body id="main" style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p><br/>
@@ -34,6 +31,7 @@
 
 		// array of all functions that update the view
 		var updateFuncs = [];
+		var div;
 
 		var mouse = new THREE.Vector2();
 
@@ -95,6 +93,13 @@
 			sprite = new THREE.Sprite( material );
 			//sprite.scale.multiplyScalar(0.5);
 			markerRoot1.add( sprite );
+
+			div = document.createElement("div");
+			div.style.width = "100px";
+			div.style.height = "100px";
+			div.style.background = "red";
+			div.style.color = "white";
+			div.innerHTML = "Hello";
 
 			// event handlers
 			window.addEventListener("resize", onResize)
@@ -187,6 +192,12 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
+
+			document.getElementById("main").appendChild(div);
+
+			var proj = getCoordinates(sprite, camera);
+			div.style.left = proj.x + 'px';
+			div.style.top = proj.y + 'px';
 
 			render();
 		}
