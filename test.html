@@ -37,6 +37,7 @@
 		var updateFuncs = [];
 
 		var mouse = new THREE.Vector2();
+		var raycaster = new THREE.Raycaster();
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
@@ -46,7 +47,7 @@
 
 		function init(){
 			scene = new THREE.Scene();
-			camera = new THREE.Camera();
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true} );
 			renderer.setClearColor(new THREE.Color("lightgrey"), 0)
@@ -162,7 +163,7 @@
 				if (markerRoots[0].visible === true && markerRoots[1].visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
 					var proj = toScreenPosition(markerRoots[0], camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+					//document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -231,6 +232,13 @@
 
 			// runs all update functions 
 			updateFuncs.forEach(function(func){ func(); });
+
+			// update the picking ray with the camera and mouse position
+			raycaster.setFromCamera( mouse, camera );
+
+			// calculate objects intersecting the picking ray
+			var intersects = raycaster.intersectObjects( scene.children );
+			document.getElementById("mark").innerHTML = intersects;
 
 			render();
 		}
