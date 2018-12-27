@@ -6,7 +6,7 @@
   </head>
 
   <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-    <title>test</title>
+    <title>aframe test</title>
 
     <script>
       AFRAME.registerComponent('registerevents', {
@@ -16,6 +16,7 @@
             var markerId = marker.id;
             console.log('markerFound', markerId);
             document.querySelector(".scanningSpinner").style.display = "none"
+            document.querySelector(".scanningSpinner").style.top = "10px"
           });
           marker.addEventListener('markerLost', function() {
             var markerId = marker.id;
