@@ -87,12 +87,11 @@
 			canvas = document.createElement( "canvas" );
 			canvas.width = 500; 
 			canvas.height = 500;
-			canvas.style.border = "10px solid #333333";
 			context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
 
 			// build sprite
-			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
+			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000} );
 			sprite = new THREE.Sprite( material );
 			//sprite.scale.multiplyScalar(0.5);
 			markerRoot1.add( sprite );
@@ -125,6 +124,7 @@
 			// put the text in the sprite
 			context.font = "50px monospace";
 			context.clearRect( 0, 0, canvas.width, canvas.height );
+			canvas.style.border = "10px solid #333333";
 			context.fillStyle = "#333";
 			context.fillText("hello world", canvas.width/4, canvas.height/2 )
 			sprite.material.map.needsUpdate = true
