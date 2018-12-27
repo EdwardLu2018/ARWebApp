@@ -16,12 +16,11 @@
             var markerId = marker.id;
             console.log('markerFound', markerId);
             document.querySelector(".scanningSpinner").style.display = "none"
-            document.querySelector(".scanningSpinner").style.top = "10px"
           });
           marker.addEventListener('markerLost', function() {
             var markerId = marker.id;
             console.log('markerLost', markerId);
-            document.querySelector(".scanningSpinner").style.display = ""
+            document.querySelector(".scanningSpinner").style.display = "block"
           });
         }
       });
