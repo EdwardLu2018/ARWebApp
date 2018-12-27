@@ -108,8 +108,7 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					var rect = canvas.getBoundingClientRect();
-					document.getElementById("mark").innerHTML = rect.left + ", " + rect.right;
+					document.getElementById("mark").innerHTML = sprite.getWorldPosition().x + ", " + sprite.getWorldPosition().y;
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
