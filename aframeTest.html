@@ -16,6 +16,7 @@
             var markerId = marker.id;
             console.log('markerFound', markerId);
             document.querySelector(".scanningSpinner").style.display = "none"
+            document.querySelector(".scanningSpinner").style.width = "100%"
           });
           marker.addEventListener('markerLost', function() {
             var markerId = marker.id;
@@ -39,9 +40,9 @@
     .scanningSpinner {
       height: 40px;
       text-align: center;
-      position: absolute;
+      position: fixed;
       width:100%;
-      top: 10px;
+      top: 300px;
       z-index: -1;
     }
 
