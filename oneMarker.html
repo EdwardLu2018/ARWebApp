@@ -20,7 +20,7 @@
 <body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
 
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333; line-height: 30px;">
-		<p id="text">[mouse position]</p>
+		<p id="text">[inputs]</p>
 		<p id="mark">[marker1 position]</p>
 	</div>
 	<div id="hello" style="display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
@@ -99,9 +99,9 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+					div.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					div.style.display = ""
 					var width = document.getElementById("hello").offsetWidth;
 					// var height = document.getElementById("hello").offsetHeight;
 					div.style.left = proj.x/2 - width/2 + 'px';
