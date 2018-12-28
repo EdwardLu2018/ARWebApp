@@ -34,6 +34,8 @@
           this.ctx.fillRect( 0, 0, this.canvas.width, this.canvas.height );
           this.ctx.fillStyle = "#333";
           this.ctx.fillText("hello world", this.canvas.width/4, this.canvas.height/2 )
+          var rect = this.canvas.getBoundingClientRect();
+          console.log(rect.x, rect.y);
         }
       });
   </script>
