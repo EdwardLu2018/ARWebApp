@@ -120,8 +120,8 @@
 	    var p = new THREE.Vector3(x, y, z);
       var vector = p.project(camera);
 
-      vector.x = (vector.x + 1) / 2 * width;
-      vector.y = -(vector.y - 1) / 2 * height;
+      vector.x = (vector.x + 1) / 2 * window.innerWidth;
+      vector.y = -(vector.y - 1) / 2 * window.innerHeight;
 
       return vector;
 		};
