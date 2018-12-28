@@ -24,7 +24,7 @@
 		<p id="mark">[marker1 position]</p>
 	</div>
 
-	<div id="hello" style="position: absolute; z-index: 1; display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
+	<div id="movingDiv" style="position: absolute; z-index: 1; display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
 		<input type="text" id="input1" value="input text"><br/>
 		<input type="text" id="input2" value="input text"><br/>
 		<button type="button" onclick="clickedButton()">click here</button>
@@ -96,22 +96,22 @@
 		}
 
 		updateFuncs.push(function updateScanner(){
-			var div = document.getElementById("hello");
+			var movingDiv = document.getElementById("movingDiv");
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					div.style.display = ""
+					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					var width = div.offsetWidth;
-					// var height = document.getElementById("hello").offsetHeight;
-					div.style.left = proj.x/2 - width/2 + 'px';
-					div.style.top = proj.y + 'px';
+					var width = movingDiv.offsetWidth;
+					// var height = document.getElementById("movingDiv").offsetHeight;
+					movingDiv.style.left = proj.x/2 - width/2 + 'px';
+					movingDiv.style.top = proj.y + 'px';
 
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
-					div.style.display = "none"
+					movingDiv.style.display = "none"
 				}
 			}
 		});
