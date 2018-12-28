@@ -103,7 +103,7 @@
 					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					document.getElementById("mark").innerHTML = markerRoot1.getWorldPosition().x + ", " + markerRoot1.getWorldPosition().y;
+					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 					var width = movingDiv.offsetWidth;
 					// var height = document.getElementById("movingDiv").offsetHeight;
 					movingDiv.style.left = proj.x/2 - width/2 + 'px';
