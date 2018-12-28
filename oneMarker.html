@@ -24,8 +24,8 @@
 		<p id="mark">[marker1 position]</p>
 	</div>
 	<div id="hello" style="display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
-		<input type="text" id="input1" value="input text">
-		<input type="text" id="input2" value="input text">
+		<input type="text" id="input1" value="input text"><br/>
+		<input type="text" id="input2" value="input text"><br/>
 		<button type="button" onclick="clickedButton()">click here</button>
 	</div>
 
@@ -137,7 +137,7 @@
 		function clickedButton(){
 			var input1 = document.getElementById("input1").value;
 			var input2 = document.getElementById("input2").value;
-			document.getElementById("text").innerHTML = "input1: " + input1 +" ||| input2: " + input2;
+			document.getElementById("text").innerHTML = "input1: " + input1 +" | input2: " + input2;
 		}
 
 		updateFuncs.push(function updateARtoolkit(){
