@@ -105,9 +105,9 @@
 					var proj = toScreenPosition(markerRoot1, camera);
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 					var width = movingDiv.offsetWidth;
-					var height = movingDiv.offsetHeight;
-					movingDiv.style.left = proj.x - width/2 + 'px';
-					movingDiv.style.top = proj.y + height/2 + 'px';
+					// var height = document.getElementById("movingDiv").offsetHeight;
+					movingDiv.style.left = proj.x/2 - width/2 + 'px';
+					movingDiv.style.top = proj.y + 'px';
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -126,13 +126,8 @@
 	    vector.setFromMatrixPosition(obj.matrixWorld);
 	    vector.project(camera);
 
-	    vector.x = ( vector.x * widthHalf ) + widthHalf; // ~200 to ~400
-	    vector.y = - ( vector.y * heightHalf ) + heightHalf; // ~100 to ~400
-
-	    let ratiox = window.innerWidth / 200;
-	    let ratioy = window.innerHeight / 300;
-	    vector.x = ((vector.x - 200) * ratiox);
-	    vector.y = ((vector.y - 100) * ratioy);
+	    vector.x = ( vector.x * widthHalf ) + widthHalf; // 200 to 400
+	    vector.y = - ( vector.y * heightHalf ) + heightHalf; // 100 to 400
 
 	    return { 
 	        x: vector.x,
