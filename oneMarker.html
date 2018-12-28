@@ -106,7 +106,7 @@
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 					var width = movingDiv.offsetWidth;
 					// var height = document.getElementById("movingDiv").offsetHeight;
-					movingDiv.style.left = proj.x/2 - width/2 + 'px';
+					movingDiv.style.left = proj.x + 'px';
 					movingDiv.style.top = proj.y + 'px';
 				}
 				else {
@@ -126,8 +126,8 @@
 	    vector.setFromMatrixPosition(obj.matrixWorld);
 	    vector.project(camera);
 
-	    vector.x = ( vector.x * widthHalf ) + widthHalf; // 200 to 400
-	    vector.y = - ( vector.y * heightHalf ) + heightHalf; // 100 to 400
+	    vector.x = ( vector.x * widthHalf ) + widthHalf; // ~200 to ~400
+	    vector.y = - ( vector.y * heightHalf ) + heightHalf; // ~100 to ~400
 
 	    let ratiox = window.innerWidth / 200;
 	    let ratioy = window.innerHeight / 300;
