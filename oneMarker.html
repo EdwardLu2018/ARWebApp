@@ -103,9 +103,9 @@
 					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					var width = movingDiv.offsetWidth;
+					// var width = movingDiv.offsetWidth;
 					// var height = document.getElementById("movingDiv").offsetHeight;
-					movingDiv.style.left = proj.x/2 - width/2 + 'px';
+					movingDiv.style.left = proj.x/2 + 'px';
 					movingDiv.style.top = proj.y + 'px';
 
 				}
