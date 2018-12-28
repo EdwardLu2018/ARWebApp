@@ -23,9 +23,10 @@
 		<p id="text">[mouse position]</p><br/>
 		<p id="mark">[marker1 position]</p>
 	</div>
-	<div id="hello" style="font-size: 50px; display: none; width: 200px; height: 100px; z-index: 1; position: fixed; text-align: center; color: #333; background-color: lightblue;">
+	<div id="hello" style="font-size: 50px; display: none; width: 200px; height: 100px; z-index: 1; position: fixed; text-align: center; color: #333; background-color: lightblue; line-height: :10px;">
 		<input type="text" id="input1" value="input text">
 		<input type="text" id="input2" value="input text">
+		<button type="button" onclick="clickedButton()">click here</button>
 	</div>
 
 	<script>
@@ -130,8 +131,13 @@
 		        x: vector.x,
 		        y: vector.y
 		    };
-
 		};
+
+		function clickedButton(){
+			var input1 = document.getElementById("input1").value;
+			var input2 = document.getElementById("input2").value;
+			document.getElementById("text").innerHTML = "input1: " + input1 +"\ninput2: " + input2;
+		}
 
 		updateFuncs.push(function updateARtoolkit(){
 			// update artoolkit on every frame
@@ -159,13 +165,13 @@
 		function onMouseMove(event){
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
+			// document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function onTouchMove(event){
 			mouse.x = event.touches[0].clientX;
 			mouse.y = event.touches[0].clientY;
-			document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
+			// document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
 		}
 
 		function render(){
