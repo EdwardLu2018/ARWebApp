@@ -122,8 +122,6 @@
 
 		    screenVector.project( camera );
 
-		    var posx = Math.round(( screenVector.x + 1 ) * renderer.domElement.offsetWidth / 2 );
-		    var posy = Math.round(( 1 - screenVector.y ) * renderer.domElement.offsetHeight / 2 );
 
 		    return {x: posx, y: posy };
 		}
