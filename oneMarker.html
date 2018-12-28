@@ -124,7 +124,7 @@
 
 	    obj.updateMatrixWorld();
 	    vector.setFromMatrixPosition(obj.matrixWorld);
-	    //vector.project(camera);
+	    vector.project(camera);
 
 	    vector.x = ( vector.x * widthHalf ) + widthHalf;
 	    vector.y = - ( vector.y * heightHalf ) + heightHalf;
