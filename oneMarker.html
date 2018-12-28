@@ -103,11 +103,11 @@
 					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
+					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 					var width = movingDiv.offsetWidth;
 					// var height = document.getElementById("movingDiv").offsetHeight;
 					movingDiv.style.left = proj.x/2 - width/2 + 'px';
 					movingDiv.style.top = proj.y + 'px';
-
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -117,22 +117,22 @@
 		});
 
 		function toScreenPosition(obj, camera) {
-		    var vector = new THREE.Vector3();
+	    var vector = new THREE.Vector3();
 
-		    var widthHalf = 0.5*renderer.context.canvas.width;
-		    var heightHalf = 0.5*renderer.context.canvas.height;
+	    var widthHalf = 0.5*renderer.context.canvas.width;
+	    var heightHalf = 0.5*renderer.context.canvas.height;
 
-		    obj.updateMatrixWorld();
-		    vector.setFromMatrixPosition(obj.matrixWorld);
-		    vector.project(camera);
+	    obj.updateMatrixWorld();
+	    vector.setFromMatrixPosition(obj.matrixWorld);
+	    vector.project(camera);
 
-		    vector.x = ( vector.x * widthHalf ) + widthHalf;
-		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+	    vector.x = ( vector.x * widthHalf ) + widthHalf;
+	    vector.y = - ( vector.y * heightHalf ) + heightHalf;
 
-		    return { 
-		        x: vector.x,
-		        y: vector.y
-		    };
+	    return { 
+	        x: vector.x,
+	        y: vector.y
+	    };
 		};
 
 		function clickedButton(){
