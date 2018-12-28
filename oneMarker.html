@@ -23,7 +23,9 @@
 		<p id="text">[mouse position]</p><br/>
 		<p id="mark">[marker1 position]</p>
 	</div>
-	<div id="hello" style="font-size: 50px; position: absolute; text-align: center; color: #333;">hi</div>
+	<div id="hello" style="font-size: 50px; width: 200px; height: 100px; position: absolute; text-align: center; color: #333; background-color: lightblue;">
+		<input type="text" id="inp" value="input text bitch!"><br>
+	</div>
 
 	<script>
 		var scene, camera, renderer;
@@ -81,19 +83,6 @@
 				type: "pattern",
 				patternUrl: "AR-Toolkit.js/data/data/patt.hiro"
 			})
-
-			// build texture
-			canvas = document.createElement( "canvas" );
-			canvas.width = 500; 
-			canvas.height = 500;
-			context = canvas.getContext( "2d" );
-			texture = new THREE.CanvasTexture( canvas );
-
-			// build sprite
-			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
-			sprite = new THREE.Sprite( material );
-			//sprite.scale.multiplyScalar(0.5);
-			markerRoot1.add( sprite );
 
 			// event handlers
 			window.addEventListener("resize", onResize)
