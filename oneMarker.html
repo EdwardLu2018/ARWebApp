@@ -103,7 +103,7 @@
 					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					document.getElementById("mark").innerHTML = markerRoot1.getWorldPosition().x + markerRoot1.getWorldPosition().y + ", " + (markerRoot1.getWorldPosition().y - markerRoot1.getWorldPosition().x);
+					document.getElementById("mark").innerHTML = markerRoot1.getWorldPosition().x + ", " + markerRoot1.getWorldPosition().y;
 					var width = movingDiv.offsetWidth;
 					// var height = document.getElementById("movingDiv").offsetHeight;
 					movingDiv.style.left = proj.x/2 - width/2 + 'px';
@@ -122,7 +122,7 @@
 	    var widthHalf = 0.5*renderer.context.canvas.width;
 	    var heightHalf = 0.5*renderer.context.canvas.height;
 
-	    obj.updateMatrixWorld();
+	    //obj.updateMatrixWorld();
 	    vector.setFromMatrixPosition(obj.matrixWorld);
 	    vector.project(camera);
 
