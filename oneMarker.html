@@ -97,10 +97,13 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
+
 					var proj = toScreenPosition(markerRoot1, camera);
 					var div = document.getElementById("hello");
-					div.style.left = proj.x/2 + 'px';
-					div.style.top = proj.y + 'px';
+					var width = document.getElementById("hello").offsetWidth;
+					var height = document.getElementById("hello").offsetWidth;
+					div.style.left = proj.x/2 - width/2 + 'px';
+					div.style.top = proj.y - height/2 + 'px';
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
