@@ -22,22 +22,20 @@
     });
 
     AFRAME.registerComponent('draw-canvas', {
-        schema: {default: ''},
+      schema: {default: ''},
 
-        init: function () {
-          this.canvas = document.getElementById(this.data);
-          this.canvas.width = 500; 
-          this.canvas.height = 500;
-          this.ctx = this.canvas.getContext('2d');
-          this.ctx.font = "50px monospace";
-          this.ctx.fillStyle = "red";
-          this.ctx.fillRect( 0, 0, this.canvas.width, this.canvas.height );
-          this.ctx.fillStyle = "#333";
-          this.ctx.fillText("hello world", this.canvas.width/4, this.canvas.height/2 )
-          var rect = this.canvas.getBoundingClientRect();
-          console.log(rect.x, rect.y);
-        }
-      });
+      init: function () {
+        this.canvas = document.getElementById(this.data);
+        this.canvas.width = 500; 
+        this.canvas.height = 500;
+        this.ctx = this.canvas.getContext('2d');
+        this.ctx.font = "50px monospace";
+        this.ctx.fillStyle = "red";
+        this.ctx.fillRect( 0, 0, this.canvas.width, this.canvas.height );
+        this.ctx.fillStyle = "#333";
+        this.ctx.fillText("hello world", this.canvas.width/4, this.canvas.height/2 );
+      }
+    });
   </script>
 
   <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
