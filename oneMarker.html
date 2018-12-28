@@ -23,7 +23,7 @@
 		<p id="text">[mouse position]</p><br/>
 		<p id="mark">[marker1 position]</p>
 	</div>
-	<div id="hello" style="font-size: 50px; width: 200px; height: 100px; z-index: 1; position: fixed; text-align: center; color: #333; background-color: lightblue;">
+	<div id="hello" style="font-size: 50px; display: none; width: 200px; height: 100px; z-index: 1; position: fixed; text-align: center; color: #333; background-color: lightblue;">
 		<input type="text" id="input1" value="input text">
 		<input type="text" id="input2" value="input text">
 	</div>
@@ -94,12 +94,13 @@
 		}
 
 		updateFuncs.push(function updateScanner(){
+			var div = document.getElementById("hello");
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					var div = document.getElementById("hello");
+					div.style.display = ""
 					var width = document.getElementById("hello").offsetWidth;
 					var height = document.getElementById("hello").offsetHeight;
 					div.style.left = proj.x/2 - width/2 + 'px';
@@ -107,6 +108,7 @@
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
+					div.style.display = "none"
 				}
 			}
 		});
