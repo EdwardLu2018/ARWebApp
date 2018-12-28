@@ -81,10 +81,10 @@
 			})
 
 			// build texture
-			canvas = document.createElement( "canvas" );
-			canvas.width = 500; 
-			canvas.height = 500;
-			context = canvas.getContext( "2d" );
+			canvas = document.createElement( "div" );
+			canvas.style.width = "300px";
+			canvas.style.height = "300px";
+			//context = canvas.getContext( "2d" );
 			texture = new THREE.CanvasTexture( canvas );
 
 			// build sprite
@@ -132,11 +132,9 @@
 			sprite.position = markerRoot1.position
 			
 			// put the text in the sprite
-			context.font = "50px monospace";
-			context.fillStyle = "red";
-			context.fillRect( 0, 0, canvas.width, canvas.height );
-			context.fillStyle = "#333";
-			context.fillText("hello world", canvas.width/4, canvas.height/2 )
+			canvas.style.background = "red";
+			canvas.style.color = "white";
+			canvas.innerHTML = "Hello";
 			sprite.material.map.needsUpdate = true
 		});
 
