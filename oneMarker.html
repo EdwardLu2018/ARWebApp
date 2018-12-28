@@ -109,8 +109,8 @@
 					document.querySelector(".scanningSpinner").style.display = "none"
 					var proj = toScreenPosition(markerRoot1, camera);
 					var div = document.getElementById("hello");
-					divElem.style.left = proj.x + 'px';
-					divElem.style.top = proj.y + 'px';
+					div.style.left = proj.x + 'px';
+					div.style.top = proj.y + 'px';
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
