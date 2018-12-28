@@ -93,7 +93,14 @@
 			window.addEventListener("touchstart", onTouchStart)
 			window.addEventListener("mousemove", onMouseMove)
 			window.addEventListener("touchmove", onTouchMove)
-		}
+			window.addEventListener("orientationchange", checkOrientation);
+
+			checkOrientation();			
+			}
+
+			function checkOrientation () {
+				renderer.setSize( 480, 640 );
+			}
 
 		updateFuncs.push(function updateScanner(){
 			var movingDiv = document.getElementById("movingDiv");
