@@ -31,9 +31,9 @@
           this.ctx = this.canvas.getContext('2d');
           this.ctx.font = "50px monospace";
           this.ctx.fillStyle = "red";
-          this.ctx.fillRect( 0, 0, canvas.width, canvas.height );
+          this.ctx.fillRect( 0, 0, this.canvas.width, this.canvas.height );
           this.ctx.fillStyle = "#333";
-          this.ctx.fillText("hello world", canvas.width/4, canvas.height/2 )
+          this.ctx.fillText("hello world", this.canvas.width/4, this.canvas.height/2 )
         }
       });
   </script>
