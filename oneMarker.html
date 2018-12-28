@@ -117,8 +117,7 @@
 		});
 
 		function toScreenPosition(obj, camera) {
-	    var p = new THREE.Vector3();
-	    p = obj.getWorldPosition().clone();
+	    var p = obj.getWorldPosition().clone();
       var vector = p.project(camera);
 
       vector.x = (vector.x + 1) / 2 * renderer.context.canvas.width;
