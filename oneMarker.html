@@ -23,6 +23,7 @@
 		<p id="text">[mouse position]</p><br/>
 		<p id="mark">[marker1 position]</p>
 	</div>
+	<div id="hello" style="font-size: 50px; position: absolute; text-align: center; color: #333;">hi</div>
 
 	<script>
 		var scene, camera, renderer;
@@ -106,8 +107,10 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					var proj = getCoordinates(sprite, camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+					var proj = toScreenPosition(markerRoot1, camera);
+					var div = document.getElementById("hello");
+					divElem.style.left = proj.x + 'px';
+					divElem.style.top = proj.y + 'px';
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
@@ -115,22 +118,26 @@
 			}
 		});
 
-		function getCoordinates( object, camera ) {
-			var width = 640, height = 480;
-			var widthHalf = width / 2, heightHalf = height / 2;
+		function toScreenPosition(obj, camera)
+		{
+		    var vector = new THREE.Vector3();
 
-			var vector = new THREE.Vector3();
-			var projector = new THREE.Projector();
-			projector.projectVector( vector.setFromMatrixPosition( object.matrixWorld ), camera );
+		    var widthHalf = 0.5*renderer.context.canvas.width;
+		    var heightHalf = 0.5*renderer.context.canvas.height;
 
-			vector.x = ( vector.x * widthHalf ) + widthHalf;
-			vector.y = - ( vector.y * heightHalf ) + heightHalf;
+		    obj.updateMatrixWorld();
+		    vector.setFromMatrixPosition(obj.matrixWorld);
+		    vector.project(camera);
 
-			return { 
-			    x: vector.x,
-			    y: vector.y
-			};
-		}
+		    vector.x = ( vector.x * widthHalf ) + widthHalf;
+		    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+
+		    return { 
+		        x: vector.x,
+		        y: vector.y
+		    };
+
+		};
 
 		updateFuncs.push(function(){
 			// update sprite position
