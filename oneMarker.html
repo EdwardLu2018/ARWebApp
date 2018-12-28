@@ -22,7 +22,6 @@
 	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333;">
 		<p id="text">[mouse position]</p><br/>
 		<p id="mark">[marker1 position]</p>
-		<input type="text" id="inp" value="input text bitch!">
 	</div>
 	<div id="hello" style="font-size: 50px; width: 200px; height: 100px; z-index: 1; position: fixed; text-align: center; color: #333; background-color: lightblue;">
 		<input type="text" id="inp" value="input text bitch!">
@@ -99,7 +98,7 @@
 					document.querySelector(".scanningSpinner").style.display = "none"
 					var proj = toScreenPosition(markerRoot1, camera);
 					var div = document.getElementById("hello");
-					div.style.left = proj.x/2 + 'px';
+					div.style.left = proj.x/2 - div.width/2 + 'px';
 					div.style.top = proj.y + 'px';
 				}
 				else{
