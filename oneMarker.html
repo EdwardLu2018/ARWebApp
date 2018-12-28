@@ -11,6 +11,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-artoolkitcontext.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
+	<script src="https://rawgithub.com/mrdoob/three.js/dev/examples/js/renderers/CSS3DRenderer.js"></script>
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
 	<title>single marker test</title>
@@ -36,6 +37,7 @@
 
 		// measurementContainer consists of a lineMesh and a sprite to display the length
 		var measurementContainer, lineMesh, canvas, context, texture, sprite;
+		var element, obj;
 
 		init();
 		animate();
@@ -80,18 +82,27 @@
 				patternUrl: "AR-Toolkit.js/data/data/patt.hiro"
 			})
 
-			// build texture
-			canvas = document.createElement( "canvas" );
-			canvas.width = 500; 
-			canvas.height = 500;
-			context = canvas.getContext( "2d" );
-			texture = new THREE.CanvasTexture( canvas );
+			element = document.createElement("div");
+			element.style.backgroundColor = 'red'
+			element.style.width = '50px'
+			element.style.height = '50px'
 
-			// build sprite
-			var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
-			sprite = new THREE.Sprite( material );
-			//sprite.scale.multiplyScalar(0.5);
-			markerRoot1.add( sprite );
+			obj = new THREE.CSS3DObject(element)
+			scene.add(obj)
+
+			// // build texture
+			// canvas = document.createElement( "canvas" );
+			// canvas.width = 500; 
+			// canvas.height = 500;
+			// context = canvas.getContext( "2d" );
+			// texture = new THREE.CanvasTexture( canvas );
+
+			// // build sprite
+			// var material = new THREE.SpriteMaterial( {map: texture, color: 0xff0000});
+			// sprite = new THREE.Sprite( material );
+			// //sprite.scale.multiplyScalar(0.5);
+			// markerRoot1.add( sprite );
+			markerRoot1.add( obj );
 
 			// event handlers
 			window.addEventListener("resize", onResize)
@@ -129,15 +140,15 @@
 
 		updateFuncs.push(function(){
 			// update sprite position
-			sprite.position = markerRoot1.position
+			obj.position = markerRoot1.position
 			
-			// put the text in the sprite
-			context.font = "50px monospace";
-			context.fillStyle = "red";
-			context.fillRect( 0, 0, canvas.width, canvas.height );
-			context.fillStyle = "#333";
-			context.fillText("hello world", canvas.width/4, canvas.height/2 )
-			sprite.material.map.needsUpdate = true
+			// // put the text in the sprite
+			// context.font = "50px monospace";
+			// context.fillStyle = "red";
+			// context.fillRect( 0, 0, canvas.width, canvas.height );
+			// context.fillStyle = "#333";
+			// context.fillText("hello world", canvas.width/4, canvas.height/2 )
+			// sprite.material.map.needsUpdate = true
 		});
 
 		updateFuncs.push(function updateARtoolkit(){
