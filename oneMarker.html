@@ -93,10 +93,10 @@
 			window.addEventListener("touchstart", onTouchStart)
 			window.addEventListener("mousemove", onMouseMove)
 			window.addEventListener("touchmove", onTouchMove)
-			window.addEventListener("orientationchange", checkOrientation);
+			window.addEventListener("orientationchange", changeOrientation);
 			}
 
-			function checkOrientation () {
+			function changeOrientation () {
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
 
