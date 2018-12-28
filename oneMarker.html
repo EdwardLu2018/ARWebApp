@@ -119,10 +119,8 @@
 		function toScreenPosition(obj, camera) {
 	    var vector = new THREE.Vector3();
 
-	    var rect = renderer.context.canvas.getBoundingClientRect();
-
-	    var widthHalf = 0.5*rect.width;
-	    var heightHalf = 0.5*rect.height;
+	    var widthHalf = 0.5*renderer.context.canvas.width;
+	    var heightHalf = 0.5*renderer.context.canvas.height;
 
 	    obj.updateMatrixWorld();
 	    vector.setFromMatrixPosition(obj.matrixWorld);
