@@ -49,7 +49,7 @@
 
 		function init(){
 			scene = new THREE.Scene();
-			camera = new THREE.Camera();
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true} );
 			renderer.setClearColor(new THREE.Color("lightgrey"), 0)
