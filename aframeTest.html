@@ -20,10 +20,30 @@
         });
       }
     });
+
+    AFRAME.registerComponent('draw-canvas', {
+        schema: {default: ''},
+
+        init: function () {
+          this.canvas = document.getElementById(this.data);
+          this.canvas.width = 500; 
+          this.canvas.height = 500;
+          this.ctx = this.canvas.getContext('2d');
+          this.ctx.font = "50px monospace";
+          this.ctx.fillStyle = "red";
+          this.ctx.fillRect( 0, 0, canvas.width, canvas.height );
+          this.ctx.fillStyle = "#333";
+          this.ctx.fillText("hello world", canvas.width/4, canvas.height/2 )
+        }
+      });
   </script>
 
   <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
     <title>test</title>
+
+    <a-assets>
+      <canvas id="my-canvas" crossorigin="anonymous"></canvas>
+    </a-assets>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' vr-mode-ui='enabled: false'>
       <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.hiro' registerevents>
@@ -35,9 +55,7 @@
       </a-marker>
 
       <a-marker preset='custom' type='pattern' url='https://edwardlu2018.github.io/ARWebApp/AR-Toolkit.js/data/data/patt.kanji' registerevents>
-        <a-plane rotation="-90 0 0">
-          <a-plane rotation="-90 0 0"></a-plane>
-        </a-plane>
+        <a-entity geometry="primitive: plane" material="src: #my-canvas" draw-canvas="my-canvas"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
