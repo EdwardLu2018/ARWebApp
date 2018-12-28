@@ -84,11 +84,10 @@
 
 			element = document.createElement("div");
 			element.style.backgroundColor = 'red'
-			element.style.width = '50px'
-			element.style.height = '50px'
+			element.style.width = '500px'
+			element.style.height = '500px'
 
-			obj = new THREE.CSS3DObject(element)
-			console.log(obj);
+			obj = new THREE.CSS3DSprite(element)
 
 			// // build texture
 			// canvas = document.createElement( "canvas" );
@@ -103,6 +102,7 @@
 			// //sprite.scale.multiplyScalar(0.5);
 			// markerRoot1.add( sprite );
 			markerRoot1.add( obj );
+			console.log(obj);
 
 			// event handlers
 			window.addEventListener("resize", onResize)
