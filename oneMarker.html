@@ -110,7 +110,7 @@
 					var proj = toScreenPosition(markerRoot1, camera);
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
 					var width = movingDiv.offsetWidth;
-					// var height = document.getElementById("movingDiv").offsetHeight;
+					var height = movingDiv.offsetHeight;
 					movingDiv.style.left = proj.x - width/2 + 'px';
 					movingDiv.style.top = proj.y - height/2 + 'px';
 				}
