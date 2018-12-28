@@ -24,8 +24,10 @@
 		<p id="mark">[marker1 position]</p>
 	</div>
 
-	<div id="hello" style="position: absolute; display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
+	<div id="hello" style="position: absolute; z-index: 1; display: none; width: 200px; height: 100px; text-align: center; background-color: lightblue; line-height: 30px;">
 		<input type="text" id="input1" value="input text"><br/>
+		<input type="text" id="input2" value="input text"><br/>
+		<button type="button" onclick="clickedButton()">click here</button>
 	</div>
 
 	<script>
@@ -101,7 +103,7 @@
 					div.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
-					var width = document.getElementById("hello").offsetWidth;
+					var width = div.offsetWidth;
 					// var height = document.getElementById("hello").offsetHeight;
 					div.style.left = proj.x/2 - width/2 + 'px';
 					div.style.top = proj.y + 'px';
@@ -136,7 +138,7 @@
 		function clickedButton(){
 			var input1 = document.getElementById("input1").value;
 			var input2 = document.getElementById("input2").value;
-			document.getElementById("text").innerHTML = "input1: \"" + input1 +"\" | input2: \"" + input2 + "\"";
+			document.getElementById("text").innerHTML = "input1: \"" + input1 +"\" && input2: \"" + input2 + "\"";
 		}
 
 		updateFuncs.push(function updateARtoolkit(){
