@@ -117,13 +117,22 @@
 		});
 
 		function toScreenPosition(obj, camera) {
-	    var p = new THREE.Vector3(x, y, z);
-      var vector = p.project(camera);
+	    var vector = new THREE.Vector3();
 
-      vector.x = (vector.x + 1) / 2 * window.innerWidth;
-      vector.y = -(vector.y - 1) / 2 * window.innerHeight;
+	    var widthHalf = 0.5*renderer.context.canvas.width;
+	    var heightHalf = 0.5*renderer.context.canvas.height;
 
-      return vector;
+	    obj.updateMatrixWorld();
+	    vector.setFromMatrixPosition(obj.matrixWorld);
+	    vector.project(camera);
+
+	    vector.x = ( vector.x * widthHalf ) + widthHalf;
+	    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+
+	    return { 
+	        x: vector.x,
+	        y: vector.y
+	    };
 		};
 
 		function clickedButton(){
