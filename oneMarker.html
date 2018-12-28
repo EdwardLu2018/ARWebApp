@@ -11,7 +11,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-artoolkitcontext.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
-	
+
 	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
 
 	<title>single marker test</title>
@@ -116,16 +116,20 @@
 		});
 
 		function getCoordinates( element, camera ) {
+			var width = 640, height = 480;
+			var widthHalf = width / 2, heightHalf = height / 2;
 
-		    var screenVector = new THREE.Vector3();
-		    element.localToWorld( screenVector );
+			var vector = new THREE.Vector3();
+			var projector = new THREE.Projector();
+			projector.projectVector( vector.setFromMatrixPosition( object.matrixWorld ), camera );
 
-		    screenVector.project( camera );
+			vector.x = ( vector.x * widthHalf ) + widthHalf;
+			vector.y = - ( vector.y * heightHalf ) + heightHalf;
 
-		    var posx = Math.round(( screenVector.x + 1 ) * renderer.domElement.offsetWidth / 2 );
-		    var posy = Math.round(( 1 - screenVector.y ) * renderer.domElement.offsetHeight / 2 );
-
-		    return {x: posx, y: posy };
+			return { 
+			    x: vector.x,
+			    y: vector.y
+			};
 		}
 
 		updateFuncs.push(function(){
