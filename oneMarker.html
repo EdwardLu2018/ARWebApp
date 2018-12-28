@@ -102,9 +102,9 @@
 					var proj = toScreenPosition(markerRoot1, camera);
 					div.style.display = ""
 					var width = document.getElementById("hello").offsetWidth;
-					var height = document.getElementById("hello").offsetHeight;
+					// var height = document.getElementById("hello").offsetHeight;
 					div.style.left = proj.x/2 - width/2 + 'px';
-					div.style.top = proj.y - height/2 + 'px';
+					div.style.top = proj.y + 'px';
 				}
 				else{
 					document.querySelector(".scanningSpinner").style.display = ""
