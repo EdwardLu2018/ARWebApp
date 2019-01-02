@@ -12,7 +12,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 
-	<title>stylized div test</title>
+	<title>Stylized Div</title>
 
 	<style>
 		.outerDiv {
@@ -94,7 +94,7 @@
 	<div class="bigDiv" style="display: none; z-index: 1; position: absolute; width: 250px; height: 250px;">
 		<div class="inputDiv" style="z-index: 1; position: absolute; width: 130px; height: 28px;">
 			<input style="position:absolute; width: 50px;" class="inp" type="text" value="Hello">
-			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">get input</button>
+			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">print</button>
 		</div>
 		<div class="outerDiv">
 			<div class="innerDiv"></div>
@@ -200,7 +200,7 @@
 			var button = document.getElementsByClassName("butt")[0];
 			button.style.left = input.offsetWidth + 10 + "px";
 			button.style.top = input.style.top;
-			
+
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
@@ -240,7 +240,8 @@
 		};
 
 		function print(){
-			alert(input.value);
+			var input = document.getElementsByClassName("inp")[0];
+			document.getElementById("text").innerHTML = "input: " + input.value;
 		}
 
 		updateFuncs.push(function updateARtoolkit(){
