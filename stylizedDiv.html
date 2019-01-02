@@ -15,7 +15,7 @@
 	<title>Stylized Div</title>
 
 	<style>
-		.containerDiv {
+		.spinContainerDiv {
 		  border-radius: 50%;
 		  border-style: solid;
 		  border-width: 5px;
@@ -82,7 +82,7 @@
 			<input style="position:absolute; width: 50px;" class="inputClass" type="text" value="Hello">
 			<button style="position:absolute; left: 100px; top: 100px" class="buttonClass" onclick="print()">print</button>
 		</div>
-		<div class="containerDiv">
+		<div class="spinContainerDiv">
 			<div class="spinDiv" style="animation: spin 5s linear infinite alternate-reverse; -webkit-animation: spin 5s linear infinite alternate-reverse;"></div>
 			<div class="spinDiv"></div>
 		</div>
@@ -163,9 +163,9 @@
 			inputDiv.style.left = window.innerWidth/2 - inputDiv.offsetWidth/2 + "px";
 			inputDiv.style.top = window.innerHeight/2 - inputDiv.offsetHeight/2 + "px";
 
-			var containerDiv = document.getElementsByClassName("containerDiv")[0];
-			containerDiv.style.left = containerDiv.parentElement.offsetWidth/2 - containerDiv.offsetWidth/2 + "px";
-			containerDiv.style.top = containerDiv.parentElement.offsetHeight/2 - containerDiv.offsetHeight/2 + "px";
+			var spinContainerDiv = document.getElementsByClassName("spinContainerDiv")[0];
+			spinContainerDiv.style.left = spinContainerDiv.parentElement.offsetWidth/2 - spinContainerDiv.offsetWidth/2 + "px";
+			spinContainerDiv.style.top = spinContainerDiv.parentElement.offsetHeight/2 - spinContainerDiv.offsetHeight/2 + "px";
 
 			var spinningDiv1 = document.getElementsByClassName("spinDiv")[0];
 			spinningDiv1.style.left = spinningDiv1.parentElement.offsetWidth/2 - spinningDiv1.offsetWidth/2 + "px";
