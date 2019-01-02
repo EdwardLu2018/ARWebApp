@@ -138,7 +138,7 @@
 		button.style.left = input.offsetWidth + 10 + "px";
 		button.style.top = input.style.top;
 		button.style.zIndex = "1";
-		
+
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
@@ -209,22 +209,21 @@
 			}
 
 		updateFuncs.push(function updateScanner(){
-			var movingDiv = document.getElementById("movingDiv");
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					movingDiv.style.display = ""
+					parent.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
-					var width = movingDiv.offsetWidth;
-					var height = movingDiv.offsetHeight;
-					movingDiv.style.left = proj.x - width/2 + 'px';
-					movingDiv.style.top = proj.y - height/2 + 'px';
+					var width = parent.offsetWidth;
+					var height = parent.offsetHeight;
+					parent.style.left = proj.x - width/2 + 'px';
+					parent.style.top = proj.y - height/2 + 'px';
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
-					movingDiv.style.display = "none"
+					parent.style.display = "none"
 				}
 			}
 		});
