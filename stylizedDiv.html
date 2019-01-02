@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- three.js library -->
+	<script src="AR-Toolkit.js/three.js/build/three.js"></script>
+	<!-- jsartookit -->
+	<script src="AR-Toolkit.js/vendor/jsartoolkit5/build/artoolkit.min.js"></script>
+	<script src="AR-Toolkit.js/vendor/jsartoolkit5/js/artoolkit.api.js"></script>
+	<!-- include threex.artoolkit -->
+	<script src="AR-Toolkit.js/src/threex/threex-artoolkitsource.js"></script>
+	<script src="AR-Toolkit.js/src/threex/threex-artoolkitcontext.js"></script>
+	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
+	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
+
+	<!-- <script>THREEx.ArToolkitContext.baseURL = "../"</script> -->
+
+	<title>single marker test</title>
+
+	<style>
+		.outerDiv {
+		  border-radius: 50%;
+		  border-style: solid;
+		  border-width: 5px;
+		  border-color: #33b5e5;
+		  position: absolute;
+	      height: 110px;
+	      width: 110px;
+		}
+
+		.innerDiv {
+			border-radius: 50px;
+		  border-style: solid;
+		  border-width: 10px;
+		  border-color: blue;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			/* Safari 4.0 - 8.0 */
+			-webkit-animation: spin 5s linear infinite alternate;
+			/* Standard syntax */
+			animation: spin 5s linear infinite alternate;
+		}
+
+		.spinDiv {
+			border-radius: 50px;
+		  border-style: solid;
+		  border-width: 10px;
+		  border-color: blue;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			/* Safari 4.0 - 8.0 */
+			-webkit-animation: spin 5s linear infinite alternate-reverse;
+			/* Standard syntax */
+			animation: spin 5s linear infinite alternate-reverse;
+		}
+
+		.inputDiv {
+		  border-style: solid;
+		  border-width: 5px;
+		  border-color: white;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+		}
+
+		/* Standard syntax */
+		@keyframes spin {
+		  from {
+		    transform: rotate(0deg);
+		  }
+		  to {
+		    transform: rotate(360deg);
+		  }
+		}
+
+		/* Safari 4.0 - 8.0 */
+		@-webkit-keyframes spin {
+		  from {
+		    transform: rotate(0deg);
+		  }
+		  to {
+		    transform: rotate(360deg);
+		  }
+		}
+	</style>
+</head>
+
+<body style="margin: 0px; overflow: hidden; position: fixed; font-family: Monospace;">
+
+	<div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1; color: #333; line-height: 30px;">
+		<p id="text">[inputs]</p>
+		<p id="mark">[marker1 position]</p>
+	</div>
+
+	<div class="bigDiv" style="display: none; z-index: -1; position: absolute; width: 250px; height: 250px;">
+		<div class="inputDiv" style="z-index: 1; position: absolute; width: 130px; height: 28px;">
+			<input style="position:absolute; width: 50px;" class="inp" type="text" value="Hello">
+			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">get input</button>
+		</div>
+		<div class="outerDiv">
+			<div class="innerDiv"></div>
+			<div class="spinDiv"></div>
+		</div>
+	</div>
+
+	<script>
+		var parent = document.getElementsByClassName("bigDiv")[0];
+		parent.style.left = window.innerWidth/2 - parent.offsetWidth/2 + "px";
+		parent.style.top = window.innerHeight/2 - parent.offsetHeight/2 + "px";
+		parent.style.zIndex = "-1";
+
+		var div = document.getElementsByClassName("outerDiv")[0];
+		div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
+		div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
+		div.style.zIndex = "-1";
+
+		var div1 = document.getElementsByClassName("innerDiv")[0];
+		div1.style.left = div1.parentElement.offsetWidth/2 - div1.offsetWidth/2 + "px";
+		div1.style.top = div1.parentElement.offsetHeight/2 - div1.offsetHeight/2 + "px";
+		div1.style.zIndex = "-1";
+
+		var div2 = document.getElementsByClassName("spinDiv")[0];
+		div2.style.left = div2.parentElement.offsetWidth/2 - div2.offsetWidth/2 + "px";
+		div2.style.top = div2.parentElement.offsetHeight/2 - div2.offsetHeight/2 + "px";
+		div2.style.zIndex = "-1";
+
+		var div3 = document.getElementsByClassName("inputDiv")[0];
+		div3.style.left = div3.parentElement.offsetWidth/2 - div3.offsetWidth/2 + "px";
+		div3.style.top = div3.parentElement.offsetHeight/2 - div3.offsetHeight/2 + "px";
+
+		var input = document.getElementsByClassName("inp")[0];
+		input.style.left = "5px";
+		input.style.top = "5px";
+		input.style.zIndex = "1";
+
+		var button = document.getElementsByClassName("butt")[0];
+		button.style.left = input.offsetWidth + 10 + "px";
+		button.style.top = input.style.top;
+		button.style.zIndex = "1";
+		
+		var scene, camera, renderer;
+		var arToolkitSource, arToolkitContext;
+
+		var markerRoot1;
+
+		// array of all functions that update the view
+		var updateFuncs = [];
+
+		var mouse = new THREE.Vector2();
+
+		// measurementContainer consists of a lineMesh and a sprite to display the length
+		var measurementContainer, lineMesh, canvas, context, texture, sprite;
+
+		init();
+		animate();
+
+		function init(){
+			scene = new THREE.Scene();
+			camera = new THREE.Camera();
+			scene.add(camera);
+			renderer = new THREE.WebGLRenderer( {antialias : true, alpha: true} );
+			renderer.setClearColor(new THREE.Color("lightgrey"), 0)
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.domElement.style.position = "absolute"
+			renderer.domElement.style.top = "0px"
+			renderer.domElement.style.left = "0px"
+			document.body.appendChild( renderer.domElement );
+			
+			// setup arToolkitSource
+			arToolkitSource = new THREEx.ArToolkitSource({
+				sourceType : "webcam",
+			});
+
+			arToolkitSource.init(function onReady(){
+				onResize()
+			});
+			
+			// create atToolkitContext
+			arToolkitContext = new THREEx.ArToolkitContext({
+				cameraParametersUrl: "AR-Toolkit.js/data/data/camera_para.dat",
+				detectionMode: "mono"
+			})
+			
+			// copy projection matrix to camera when initialization complete
+			arToolkitContext.init(function onCompleted(){
+				camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+			});
+
+			// build markerControls for marker1
+			markerRoot1 = new THREE.Group
+			scene.add(markerRoot1)
+			var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+				type: "pattern",
+				patternUrl: "AR-Toolkit.js/data/data/patt.hiro"
+			})
+
+			// event handlers
+			window.addEventListener("resize", onResize)
+			window.addEventListener("mousedown", onMouseDown)
+			window.addEventListener("touchstart", onTouchStart)
+			window.addEventListener("mousemove", onMouseMove)
+			window.addEventListener("touchmove", onTouchMove)
+			window.addEventListener("orientationchange", changeOrientation);
+			}
+
+			function changeOrientation () {
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+		updateFuncs.push(function updateScanner(){
+			var movingDiv = document.getElementById("movingDiv");
+			if (document.querySelector(".scanningSpinner") != null){
+				if (markerRoot1.visible === true){
+					document.querySelector(".scanningSpinner").style.display = "none"
+					movingDiv.style.display = ""
+
+					var proj = toScreenPosition(markerRoot1, camera);
+					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+					var width = movingDiv.offsetWidth;
+					var height = movingDiv.offsetHeight;
+					movingDiv.style.left = proj.x - width/2 + 'px';
+					movingDiv.style.top = proj.y - height/2 + 'px';
+				}
+				else {
+					document.querySelector(".scanningSpinner").style.display = ""
+					movingDiv.style.display = "none"
+				}
+			}
+		});
+
+		function toScreenPosition(obj, camera) {
+	    var vector = new THREE.Vector3();
+
+	    var widthHalf = 0.5*renderer.context.canvas.width;
+	    var heightHalf = 0.5*renderer.context.canvas.height;
+
+	    obj.updateMatrixWorld();
+	    vector.setFromMatrixPosition(obj.matrixWorld);
+	    vector.project(camera);
+
+	    vector.x = ( vector.x * widthHalf ) + widthHalf; // 200 to 400
+	    vector.y = - ( vector.y * heightHalf ) + heightHalf; // 100 to 400
+
+	    return { 
+	        x: vector.x,
+	        y: vector.y
+	    };
+		};
+
+		function print(){
+			alert(input.value);
+		}
+
+		updateFuncs.push(function updateARtoolkit(){
+			// update artoolkit on every frame
+			if (arToolkitSource.ready !== false){
+				arToolkitContext.update( arToolkitSource.domElement );
+			}
+		});
+
+		function onResize(){
+			arToolkitSource.onResizeElement()
+			arToolkitSource.copyElementSizeTo(renderer.domElement)	
+			if (arToolkitContext.arController !== null){
+				arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)	
+			}
+		}
+
+		function onMouseDown(event){
+			onMouseMove(event);
+		}
+
+		function onTouchStart(event){
+			onTouchMove(event);
+		}
+
+		function onMouseMove(event){
+			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			// document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
+		}
+
+		function onTouchMove(event){
+			mouse.x = event.touches[0].clientX;
+			mouse.y = event.touches[0].clientY;
+			// document.getElementById("text").innerHTML = mouse.x + ", " + mouse.y;
+		}
+
+		function render(){
+			renderer.render( scene, camera );
+		}
+
+		function animate(){
+			requestAnimationFrame(animate);
+
+			// runs all update functions 
+			updateFuncs.forEach(function(func){ func(); });
+
+			render();
+		}
+
+	</script>
+
+	<!-- Scanning animation when the marker are not visible -->
+	<div class="scanningSpinner">
+		<label>
+			Scanning
+		</label>
+		<div class="rect1"></div>
+		<div class="rect2"></div>
+		<div class="rect3"></div>
+	</div>
+	<style>
+	.scanningSpinner {
+		margin: 100px auto;
+		height: 40px;
+		text-align: center;
+		position: fixed;
+		width:100%;
+	}
+
+	.scanningSpinner label {
+		display: block;
+		color: #333;
+		font-size: 200%;
+	}
+
+	.scanningSpinner > div {
+		background-color: #333;
+		height: 100%;
+		width: 6px;
+		display: inline-block;
+		
+		-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+		animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	}
+
+	.scanningSpinner .rect2 {
+		-webkit-animation-delay: -1.1s;
+		animation-delay: -1.1s;
+	}
+
+	.scanningSpinner .rect3 {
+		-webkit-animation-delay: -1.0s;
+		animation-delay: -1.0s;
+	}
+
+	@-webkit-keyframes sk-stretchdelay {
+		0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+		20% { -webkit-transform: scaleY(1.0) }
+	}
+
+	@keyframes sk-stretchdelay {
+		0%, 40%, 100% { 
+			transform: scaleY(0.4);
+			-webkit-transform: scaleY(0.4);
+			}
+		20% { 
+			transform: scaleY(1.0);
+			-webkit-transform: scaleY(1.0);
+		}
+	}
+	</style>
+</body>
