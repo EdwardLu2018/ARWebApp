@@ -12,7 +12,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 
-	<title>Stylized Div Test</title>
+	<title>Custom Div Test 1</title>
 
 	<style>
 		.containerDiv {
@@ -145,6 +145,30 @@
 				patternUrl: "AR-Toolkit.js/data/data/patt.hiro"
 			})
 
+			var containerDiv = document.getElementsByClassName("containerDiv")[0];
+			containerDiv.style.left = containerDiv.parentElement.offsetWidth/2 - containerDiv.offsetWidth/2 + "px";
+			containerDiv.style.top = containerDiv.parentElement.offsetHeight/2 - containerDiv.offsetHeight/2 + "px";
+
+			var spinDiv1 = document.getElementsByClassName("spinDiv")[0];
+			spinDiv1.style.left = spinDiv1.parentElement.offsetWidth/2 - spinDiv1.offsetWidth/2 + "px";
+			spinDiv1.style.top = spinDiv1.parentElement.offsetHeight/2 - spinDiv1.offsetHeight/2 + "px";
+
+			var spinDiv2 = document.getElementsByClassName("spinDiv")[1];
+			spinDiv2.style.left = spinDiv2.parentElement.offsetWidth/2 - spinDiv2.offsetWidth/2 + "px";
+			spinDiv2.style.top = spinDiv2.parentElement.offsetHeight/2 - spinDiv2.offsetHeight/2 + "px";
+
+			var inputDiv = document.getElementsByClassName("inputDiv")[0];
+			inputDiv.style.left = inputDiv.parentElement.offsetWidth/2 - inputDiv.offsetWidth/2 + "px";
+			inputDiv.style.top = inputDiv.parentElement.offsetHeight/2 - inputDiv.offsetHeight/2 + "px";
+
+			var input = document.getElementsByClassName("inputClass")[0];
+			input.style.left = "5px";
+			input.style.top = "5px";
+
+			var button = document.getElementsByClassName("buttonClass")[0];
+			button.style.left = input.offsetWidth + 10 + "px";
+			button.style.top = input.style.top;
+
 			// event handlers
 			window.addEventListener("resize", onResize)
 			window.addEventListener("mousedown", onMouseDown)
@@ -170,41 +194,16 @@
 		});
 
 		updateFuncs.push(function updateMovingDiv(){
-			var containerDiv = document.getElementsByClassName("containerDiv")[0];
-			containerDiv.style.left = containerDiv.parentElement.offsetWidth/2 - containerDiv.offsetWidth/2 + "px";
-			containerDiv.style.top = containerDiv.parentElement.offsetHeight/2 - containerDiv.offsetHeight/2 + "px";
-
-			var spinDiv1 = document.getElementsByClassName("spinDiv")[0];
-			spinDiv1.style.left = spinDiv1.parentElement.offsetWidth/2 - spinDiv1.offsetWidth/2 + "px";
-			spinDiv1.style.top = spinDiv1.parentElement.offsetHeight/2 - spinDiv1.offsetHeight/2 + "px";
-
-			var spinDiv2 = document.getElementsByClassName("spinDiv")[1];
-			spinDiv2.style.left = spinDiv2.parentElement.offsetWidth/2 - spinDiv2.offsetWidth/2 + "px";
-			spinDiv2.style.top = spinDiv2.parentElement.offsetHeight/2 - spinDiv2.offsetHeight/2 + "px";
-
-			var inputDiv = document.getElementsByClassName("inputDiv")[0];
-			inputDiv.style.left = inputDiv.parentElement.offsetWidth/2 - inputDiv.offsetWidth/2 + "px";
-			inputDiv.style.top = inputDiv.parentElement.offsetHeight/2 - inputDiv.offsetHeight/2 + "px";
-
-			var input = document.getElementsByClassName("inputClass")[0];
-			input.style.left = "5px";
-			input.style.top = "5px";
-
-			var button = document.getElementsByClassName("buttonClass")[0];
-			button.style.left = input.offsetWidth + 10 + "px";
-			button.style.top = input.style.top;
-
-			if (document.querySelector(".scanningSpinner") != null){
-				if (markerRoot1.visible === true){
-					movingDiv.style.display = ""
-					var proj = toScreenPosition(markerRoot1, camera);
-					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
-					movingDiv.style.left = proj.x - movingDiv.offsetWidth/2 + 'px';
-					movingDiv.style.top = proj.y - movingDiv.offsetHeight/2 + 'px';
-				}
-				else {
-					movingDiv.style.display = "none"
-				}
+			var movingDiv = document.getElementsByClassName("movingDiv")[0];
+			if (markerRoot1.visible === true){
+				movingDiv.style.display = ""
+				var proj = toScreenPosition(markerRoot1, camera);
+				document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
+				movingDiv.style.left = proj.x - movingDiv.offsetWidth/2 + 'px';
+				movingDiv.style.top = proj.y - movingDiv.offsetHeight/2 + 'px';
+			}
+			else {
+				movingDiv.style.display = "none"
 			}
 		});
 
