@@ -12,7 +12,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 
-	<title>Stylized Div Test</title>
+	<title>Stylized Div</title>
 
 	<style>
 		.containerDiv {
@@ -79,8 +79,8 @@
 
 	<div class="movingDiv" style="display: none; z-index: 1; position: absolute; width: 250px; height: 250px;">
 		<div class="inputDiv" style="z-index: 1; position: absolute; width: 130px; height: 28px;">
-			<input style="position:absolute; width: 50px;" class="inp" type="text" value="Hello">
-			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">print</button>
+			<input style="position:absolute; width: 50px;" class="inputClass" type="text" value="Hello">
+			<button style="position:absolute; left: 100px; top: 100px" class="buttonClass" onclick="print()">print</button>
 		</div>
 		<div class="containerDiv">
 			<div class="spinDiv" style="animation: spin 5s linear infinite alternate-reverse; -webkit-animation: spin 5s linear infinite alternate-reverse;"></div>
@@ -159,49 +159,49 @@
 		}
 
 		updateFuncs.push(function updateScanner(){
-			var parent = document.getElementsByClassName("movingDiv")[0];
-			parent.style.left = window.innerWidth/2 - parent.offsetWidth/2 + "px";
-			parent.style.top = window.innerHeight/2 - parent.offsetHeight/2 + "px";
+			var inputDiv = document.getElementsByClassName("movingDiv")[0];
+			inputDiv.style.left = window.innerWidth/2 - inputDiv.offsetWidth/2 + "px";
+			inputDiv.style.top = window.innerHeight/2 - inputDiv.offsetHeight/2 + "px";
 
-			var div = document.getElementsByClassName("containerDiv")[0];
-			div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
-			div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
+			var containerDiv = document.getElementsByClassName("containerDiv")[0];
+			containerDiv.style.left = containerDiv.parentElement.offsetWidth/2 - containerDiv.offsetWidth/2 + "px";
+			containerDiv.style.top = containerDiv.parentElement.offsetHeight/2 - containerDiv.offsetHeight/2 + "px";
 
-			var div1 = document.getElementsByClassName("spinDiv")[0];
-			div1.style.left = div1.parentElement.offsetWidth/2 - div1.offsetWidth/2 + "px";
-			div1.style.top = div1.parentElement.offsetHeight/2 - div1.offsetHeight/2 + "px";
+			var spinningDiv1 = document.getElementsByClassName("spinDiv")[0];
+			spinningDiv1.style.left = spinningDiv1.parentElement.offsetWidth/2 - spinningDiv1.offsetWidth/2 + "px";
+			spinningDiv1.style.top = spinningDiv1.parentElement.offsetHeight/2 - spinningDiv1.offsetHeight/2 + "px";
 
-			var div2 = document.getElementsByClassName("spinDiv")[1];
-			div2.style.left = div2.parentElement.offsetWidth/2 - div2.offsetWidth/2 + "px";
-			div2.style.top = div2.parentElement.offsetHeight/2 - div2.offsetHeight/2 + "px";
+			var spinningDiv2 = document.getElementsByClassName("spinDiv")[1];
+			spinningDiv2.style.left = spinningDiv2.parentElement.offsetWidth/2 - spinningDiv2.offsetWidth/2 + "px";
+			spinningDiv2.style.top = spinningDiv2.parentElement.offsetHeight/2 - spinningDiv2.offsetHeight/2 + "px";
 
-			var div3 = document.getElementsByClassName("inputDiv")[0];
-			div3.style.left = div3.parentElement.offsetWidth/2 - div3.offsetWidth/2 + "px";
-			div3.style.top = div3.parentElement.offsetHeight/2 - div3.offsetHeight/2 + "px";
+			var inputDiv = document.getElementsByClassName("inputDiv")[0];
+			inputDiv.style.left = inputDiv.parentElement.offsetWidth/2 - inputDiv.offsetWidth/2 + "px";
+			inputDiv.style.top = inputDiv.parentElement.offsetHeight/2 - inputDiv.offsetHeight/2 + "px";
 
-			var input = document.getElementsByClassName("inp")[0];
+			var input = document.getElementsByClassName("inputClass")[0];
 			input.style.left = "5px";
 			input.style.top = "5px";
 
-			var button = document.getElementsByClassName("butt")[0];
+			var button = document.getElementsByClassName("buttonClass")[0];
 			button.style.left = input.offsetWidth + 10 + "px";
 			button.style.top = input.style.top;
 
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					parent.style.display = ""
+					inputDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
-					var width = parent.offsetWidth;
-					var height = parent.offsetHeight;
-					parent.style.left = proj.x - width/2 + 'px';
-					parent.style.top = proj.y - height/2 + 'px';
+					var width = inputDiv.offsetWidth;
+					var height = inputDiv.offsetHeight;
+					inputDiv.style.left = proj.x - width/2 + 'px';
+					inputDiv.style.top = proj.y - height/2 + 'px';
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
-					parent.style.display = "none"
+					inputDiv.style.display = "none"
 				}
 			}
 		});
@@ -226,7 +226,7 @@
 		};
 
 		function print(){
-			var input = document.getElementsByClassName("inp")[0];
+			var input = document.getElementsByClassName("inputClass")[0];
 			document.getElementById("text").innerHTML = "input: " + input.value;
 		}
 
