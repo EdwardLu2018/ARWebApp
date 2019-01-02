@@ -25,7 +25,7 @@
       width: 110px;
 		}
 
-		.innerDiv {
+		.spinDiv {
 			border-radius: 50px;
 		  border-style: solid;
 		  border-width: 10px;
@@ -37,20 +37,6 @@
 			-webkit-animation: spin 5s linear infinite alternate;
 			/* Standard syntax */
 			animation: spin 5s linear infinite alternate;
-		}
-
-		.spinDiv {
-			border-radius: 50px;
-		  border-style: solid;
-		  border-width: 10px;
-		  border-color: blue;
-			width: 200px;
-			height: 200px;
-			position: absolute;
-			/* Safari 4.0 - 8.0 */
-			-webkit-animation: spin 5s linear infinite alternate-reverse;
-			/* Standard syntax */
-			animation: spin 5s linear infinite alternate-reverse;
 		}
 
 		.inputDiv {
@@ -97,7 +83,7 @@
 			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">print</button>
 		</div>
 		<div class="outerDiv">
-			<div class="innerDiv"></div>
+			<div class="spinDiv" style="animation: spin 5s linear infinite alternate-reverse; -webkit-animation: spin 5s linear infinite alternate-reverse;"></div>
 			<div class="spinDiv"></div>
 		</div>
 	</div>
@@ -181,11 +167,11 @@
 			div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
 			div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
 
-			var div1 = document.getElementsByClassName("innerDiv")[0];
+			var div1 = document.getElementsByClassName("spinDiv")[0];
 			div1.style.left = div1.parentElement.offsetWidth/2 - div1.offsetWidth/2 + "px";
 			div1.style.top = div1.parentElement.offsetHeight/2 - div1.offsetHeight/2 + "px";
 
-			var div2 = document.getElementsByClassName("spinDiv")[0];
+			var div2 = document.getElementsByClassName("spinDiv")[1];
 			div2.style.left = div2.parentElement.offsetWidth/2 - div2.offsetWidth/2 + "px";
 			div2.style.top = div2.parentElement.offsetHeight/2 - div2.offsetHeight/2 + "px";
 
