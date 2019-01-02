@@ -12,7 +12,7 @@
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 
-	<title>stylized div with marker test</title>
+	<title>stylized div</title>
 
 	<style>
 		.outerDiv {
@@ -91,7 +91,7 @@
 		<p id="mark">[marker1 position]</p>
 	</div>
 
-	<div class="bigDiv" style="display: none; z-index: -1; position: absolute; width: 250px; height: 250px;">
+	<div class="bigDiv" style="display: none; z-index: 1; position: absolute; width: 250px; height: 250px;">
 		<div class="inputDiv" style="z-index: 1; position: absolute; width: 130px; height: 28px;">
 			<input style="position:absolute; width: 50px;" class="inp" type="text" value="Hello">
 			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">get input</button>
@@ -103,40 +103,6 @@
 	</div>
 
 	<script>
-		var parent = document.getElementsByClassName("bigDiv")[0];
-		parent.style.left = window.innerWidth/2 - parent.offsetWidth/2 + "px";
-		parent.style.top = window.innerHeight/2 - parent.offsetHeight/2 + "px";
-		parent.style.zIndex = "-1";
-
-		var div = document.getElementsByClassName("outerDiv")[0];
-		div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
-		div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
-		div.style.zIndex = "-1";
-
-		var div1 = document.getElementsByClassName("innerDiv")[0];
-		div1.style.left = div1.parentElement.offsetWidth/2 - div1.offsetWidth/2 + "px";
-		div1.style.top = div1.parentElement.offsetHeight/2 - div1.offsetHeight/2 + "px";
-		div1.style.zIndex = "-1";
-
-		var div2 = document.getElementsByClassName("spinDiv")[0];
-		div2.style.left = div2.parentElement.offsetWidth/2 - div2.offsetWidth/2 + "px";
-		div2.style.top = div2.parentElement.offsetHeight/2 - div2.offsetHeight/2 + "px";
-		div2.style.zIndex = "-1";
-
-		var div3 = document.getElementsByClassName("inputDiv")[0];
-		div3.style.left = div3.parentElement.offsetWidth/2 - div3.offsetWidth/2 + "px";
-		div3.style.top = div3.parentElement.offsetHeight/2 - div3.offsetHeight/2 + "px";
-
-		var input = document.getElementsByClassName("inp")[0];
-		input.style.left = "5px";
-		input.style.top = "5px";
-		input.style.zIndex = "1";
-
-		var button = document.getElementsByClassName("butt")[0];
-		button.style.left = input.offsetWidth + 10 + "px";
-		button.style.top = input.style.top;
-		button.style.zIndex = "1";
-
 		var scene, camera, renderer;
 		var arToolkitSource, arToolkitContext;
 
@@ -207,6 +173,40 @@
 			}
 
 		updateFuncs.push(function updateScanner(){
+			var parent = document.getElementsByClassName("bigDiv")[0];
+			parent.style.left = window.innerWidth/2 - parent.offsetWidth/2 + "px";
+			parent.style.top = window.innerHeight/2 - parent.offsetHeight/2 + "px";
+			parent.style.zIndex = "-1";
+
+			var div = document.getElementsByClassName("outerDiv")[0];
+			div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
+			div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
+			div.style.zIndex = "-1";
+
+			var div1 = document.getElementsByClassName("innerDiv")[0];
+			div1.style.left = div1.parentElement.offsetWidth/2 - div1.offsetWidth/2 + "px";
+			div1.style.top = div1.parentElement.offsetHeight/2 - div1.offsetHeight/2 + "px";
+			div1.style.zIndex = "-1";
+
+			var div2 = document.getElementsByClassName("spinDiv")[0];
+			div2.style.left = div2.parentElement.offsetWidth/2 - div2.offsetWidth/2 + "px";
+			div2.style.top = div2.parentElement.offsetHeight/2 - div2.offsetHeight/2 + "px";
+			div2.style.zIndex = "-1";
+
+			var div3 = document.getElementsByClassName("inputDiv")[0];
+			div3.style.left = div3.parentElement.offsetWidth/2 - div3.offsetWidth/2 + "px";
+			div3.style.top = div3.parentElement.offsetHeight/2 - div3.offsetHeight/2 + "px";
+
+			var input = document.getElementsByClassName("inp")[0];
+			input.style.left = "5px";
+			input.style.top = "5px";
+			input.style.zIndex = "1";
+
+			var button = document.getElementsByClassName("butt")[0];
+			button.style.left = input.offsetWidth + 10 + "px";
+			button.style.top = input.style.top;
+			button.style.zIndex = "1";
+
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
