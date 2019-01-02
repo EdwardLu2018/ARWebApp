@@ -15,7 +15,7 @@
 	<title>Stylized Div</title>
 
 	<style>
-		.outerDiv {
+		.containerDiv {
 		  border-radius: 50%;
 		  border-style: solid;
 		  border-width: 5px;
@@ -77,12 +77,12 @@
 		<p id="mark">[marker1 position]</p>
 	</div>
 
-	<div class="bigDiv" style="display: none; z-index: 1; position: absolute; width: 250px; height: 250px;">
+	<div class="movingDiv" style="display: none; z-index: 1; position: absolute; width: 250px; height: 250px;">
 		<div class="inputDiv" style="z-index: 1; position: absolute; width: 130px; height: 28px;">
 			<input style="position:absolute; width: 50px;" class="inp" type="text" value="Hello">
 			<button style="position:absolute; left: 100px; top: 100px" class="butt" onclick="print()">print</button>
 		</div>
-		<div class="outerDiv">
+		<div class="containerDiv">
 			<div class="spinDiv" style="animation: spin 5s linear infinite alternate-reverse; -webkit-animation: spin 5s linear infinite alternate-reverse;"></div>
 			<div class="spinDiv"></div>
 		</div>
@@ -159,11 +159,11 @@
 		}
 
 		updateFuncs.push(function updateScanner(){
-			var parent = document.getElementsByClassName("bigDiv")[0];
+			var parent = document.getElementsByClassName("movingDiv")[0];
 			parent.style.left = window.innerWidth/2 - parent.offsetWidth/2 + "px";
 			parent.style.top = window.innerHeight/2 - parent.offsetHeight/2 + "px";
 
-			var div = document.getElementsByClassName("outerDiv")[0];
+			var div = document.getElementsByClassName("containerDiv")[0];
 			div.style.left = div.parentElement.offsetWidth/2 - div.offsetWidth/2 + "px";
 			div.style.top = div.parentElement.offsetHeight/2 - div.offsetHeight/2 + "px";
 
