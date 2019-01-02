@@ -12,10 +12,10 @@
 	<script src="AR-Toolkit.js/src/threex/threex-arbasecontrols.js"></script>
 	<script src="AR-Toolkit.js/src/threex/threex-armarkercontrols.js"></script>
 
-	<title>Stylized Div</title>
+	<title>Stylized Div Test</title>
 
 	<style>
-		.spinContainerDiv {
+		.containerDiv {
 		  border-radius: 50%;
 		  border-style: solid;
 		  border-width: 5px;
@@ -82,7 +82,7 @@
 			<input style="position:absolute; width: 50px;" class="inputClass" type="text" value="Hello">
 			<button style="position:absolute; left: 100px; top: 100px" class="buttonClass" onclick="print()">print</button>
 		</div>
-		<div class="spinContainerDiv">
+		<div class="containerDiv">
 			<div class="spinDiv" style="animation: spin 5s linear infinite alternate-reverse; -webkit-animation: spin 5s linear infinite alternate-reverse;"></div>
 			<div class="spinDiv"></div>
 		</div>
@@ -159,21 +159,21 @@
 		}
 
 		updateFuncs.push(function updateScanner(){
-			var inputDiv = document.getElementsByClassName("movingDiv")[0];
-			inputDiv.style.left = window.innerWidth/2 - inputDiv.offsetWidth/2 + "px";
-			inputDiv.style.top = window.innerHeight/2 - inputDiv.offsetHeight/2 + "px";
+			var movingDiv = document.getElementsByClassName("movingDiv")[0];
+			movingDiv.style.left = window.innerWidth/2 - movingDiv.offsetWidth/2 + "px";
+			movingDiv.style.top = window.innerHeight/2 - movingDiv.offsetHeight/2 + "px";
 
-			var spinContainerDiv = document.getElementsByClassName("spinContainerDiv")[0];
-			spinContainerDiv.style.left = spinContainerDiv.parentElement.offsetWidth/2 - spinContainerDiv.offsetWidth/2 + "px";
-			spinContainerDiv.style.top = spinContainerDiv.parentElement.offsetHeight/2 - spinContainerDiv.offsetHeight/2 + "px";
+			var containerDiv = document.getElementsByClassName("containerDiv")[0];
+			containerDiv.style.left = containerDiv.parentElement.offsetWidth/2 - containerDiv.offsetWidth/2 + "px";
+			containerDiv.style.top = containerDiv.parentElement.offsetHeight/2 - containerDiv.offsetHeight/2 + "px";
 
-			var spinningDiv1 = document.getElementsByClassName("spinDiv")[0];
-			spinningDiv1.style.left = spinningDiv1.parentElement.offsetWidth/2 - spinningDiv1.offsetWidth/2 + "px";
-			spinningDiv1.style.top = spinningDiv1.parentElement.offsetHeight/2 - spinningDiv1.offsetHeight/2 + "px";
+			var spinDiv1 = document.getElementsByClassName("spinDiv")[0];
+			spinDiv1.style.left = spinDiv1.parentElement.offsetWidth/2 - spinDiv1.offsetWidth/2 + "px";
+			spinDiv1.style.top = spinDiv1.parentElement.offsetHeight/2 - spinDiv1.offsetHeight/2 + "px";
 
-			var spinningDiv2 = document.getElementsByClassName("spinDiv")[1];
-			spinningDiv2.style.left = spinningDiv2.parentElement.offsetWidth/2 - spinningDiv2.offsetWidth/2 + "px";
-			spinningDiv2.style.top = spinningDiv2.parentElement.offsetHeight/2 - spinningDiv2.offsetHeight/2 + "px";
+			var spinDiv2 = document.getElementsByClassName("spinDiv")[1];
+			spinDiv2.style.left = spinDiv2.parentElement.offsetWidth/2 - spinDiv2.offsetWidth/2 + "px";
+			spinDiv2.style.top = spinDiv2.parentElement.offsetHeight/2 - spinDiv2.offsetHeight/2 + "px";
 
 			var inputDiv = document.getElementsByClassName("inputDiv")[0];
 			inputDiv.style.left = inputDiv.parentElement.offsetWidth/2 - inputDiv.offsetWidth/2 + "px";
@@ -190,18 +190,18 @@
 			if (document.querySelector(".scanningSpinner") != null){
 				if (markerRoot1.visible === true){
 					document.querySelector(".scanningSpinner").style.display = "none"
-					inputDiv.style.display = ""
+					movingDiv.style.display = ""
 
 					var proj = toScreenPosition(markerRoot1, camera);
 					document.getElementById("mark").innerHTML = proj.x + ", " + proj.y;
-					var width = inputDiv.offsetWidth;
-					var height = inputDiv.offsetHeight;
-					inputDiv.style.left = proj.x - width/2 + 'px';
-					inputDiv.style.top = proj.y - height/2 + 'px';
+					var width = movingDiv.offsetWidth;
+					var height = movingDiv.offsetHeight;
+					movingDiv.style.left = proj.x - width/2 + 'px';
+					movingDiv.style.top = proj.y - height/2 + 'px';
 				}
 				else {
 					document.querySelector(".scanningSpinner").style.display = ""
-					inputDiv.style.display = "none"
+					movingDiv.style.display = "none"
 				}
 			}
 		});
