@@ -4,7 +4,7 @@
 <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/cfe5f316/dist/aframe-extras.js"></script>
 
 <body>
-	<title>test!</title>
+	<title>test!!!</title>
 
   <a-scene ar>
   	<a-assets>
@@ -34,6 +34,30 @@
       raycaster.addEventListener('click', () => {
         walker.setAttribute('position', raycaster.components.cursor.intersection.point);
       });
+
+      const walker = document.querySelector('#walker');
+      const { stringify } = AFRAME.utils.coordinates;
+
+      let firstTime = true;
+      raycaster.addEventListener('click', () => {
+        const target = raycaster.components.cursor.intersection.point;
+
+        if (firstTime) {
+          walker.setAttribute('position', target);
+          firstTime = false;
+        } else {
+          const animation = document.createElement('a-animation');
+          animation.setAttribute('attribute', 'position');
+          animation.setAttribute('to', stringify(target));
+          animation.setAttribute('dur', 5000);
+          animation.setAttribute('easing', 'linear');
+          walker.appendChild(animation);
+          const currentPosition = walker.object3D.position;
+					const distance = currentPosition.distanceTo(target);
+					animation.setAttribute('dur', distance * 7000);
+        }
+      });
     }
+
   </script>
 </body>
