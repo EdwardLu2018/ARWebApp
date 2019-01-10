@@ -3,25 +3,8 @@
 <script src="https://rawgit.com/chenzlabs/aframe-ar/827e9db/dist/aframe-ar.min.js"></script>
 <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/cfe5f316/dist/aframe-extras.js"></script>
 
-<script type="text/javascript">
-  function onSceneLoaded() {
-    const raycaster = document.querySelector('[ar-raycaster]');
-    const cursor = document.querySelector('#cursor');
-    raycaster.addEventListener('raycaster-intersection', (event) => {
-      cursor.setAttribute('position', event.detail.intersections[0].point);
-    });
-    const scene = document.querySelector('a-scene');
-    scene.addEventListener('loaded', onSceneLoaded);
-
-    const walker = document.querySelector('#walker');
-    raycaster.addEventListener('click', () => {
-      walker.setAttribute('position', raycaster.components.cursor.intersection.point);
-    });
-  }
-</script>
-
 <body>
-	<title>test...</title>
+	<title>test!</title>
 
   <a-scene ar>
   	<a-assets>
@@ -31,10 +14,26 @@
     </a-entity>
 
     <a-ring id="cursor" radius-inner="0.02" radius-outer="0.03"  
-            color="teal" position="0 -0.8 -5" rotation="-90 0 0">
+            color="teal" position="0 0 -5" rotation="-90 0 0">
     </a-ring>
 
     <a-camera ar-raycaster raycaster cursor="fuse:false"> </a-camera>
   </a-scene>
 
+  <script type="text/javascript">
+    function onSceneLoaded() {
+      const raycaster = document.querySelector('[ar-raycaster]');
+      const cursor = document.querySelector('#cursor');
+      raycaster.addEventListener('raycaster-intersection', (event) => {
+        cursor.setAttribute('position', event.detail.intersections[0].point);
+      });
+      const scene = document.querySelector('a-scene');
+      scene.addEventListener('loaded', onSceneLoaded);
+
+      const walker = document.querySelector('#walker');
+      raycaster.addEventListener('click', () => {
+        walker.setAttribute('position', raycaster.components.cursor.intersection.point);
+      });
+    }
+  </script>
 </body>
