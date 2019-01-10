@@ -4,13 +4,13 @@
 <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/cfe5f316/dist/aframe-extras.js"></script>
 
 <body>
-	<title>test!!!</title>
+	<title>test!</title>
 
   <a-scene ar>
   	<a-assets>
   	  <a-asset id="cesium-man" src="CesiumMan.glb"></a-asset>
   	</a-assets>
-    <a-entity id="walker" gltf-model="#cesium-man" position="0 0 -5" scale="0.15 0.15 0.15" animation-mixer>
+    <a-entity id="walker" gltf-model="#cesium-man" scale="0.15 0.15 0.15" rotation="0 -90 0" animation-mixer>
     </a-entity>
 
     <a-ring id="cursor" radius-inner="0.02" radius-outer="0.03"  
@@ -55,6 +55,7 @@
           const currentPosition = walker.object3D.position;
 					const distance = currentPosition.distanceTo(target);
 					animation.setAttribute('dur', distance * 7000);
+					walker.object3D.lookAt(target);
         }
       });
     }
