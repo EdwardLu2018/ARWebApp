@@ -4,8 +4,8 @@ Allow camera access.
 
 Pineapple model on python marker:
 https://edwardlu2018.github.io/ARWebApp/ 
-
-(Pinapple Model by Jason Toff - https://poly.google.com/view/48qW80_L0lP)
+<br>
+([Pinapple Model](https://poly.google.com/view/48qW80_L0lP) by Jason Toff)
 
 Measuring distance from hiro to kanji marker:
 https://edwardlu2018.github.io/ARWebApp/test.html 
